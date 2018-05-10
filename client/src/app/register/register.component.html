@@ -1,0 +1,33 @@
+<form (submit)="onRegisterSubmit()">
+  <fieldset>
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input type="email" class="form-control" [(ngModel)]="first_name" name="first_name">
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input type="email" class="form-control" [(ngModel)]="last_name" name="last_name">
+    </div>
+    <div class="form-group">
+      <label for="email_address">Email address</label>
+      <input type="email" class="form-control" [(ngModel)]="email" name="email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="email" class="form-control" [(ngModel)]="phone" name="phone">
+    </div>
+    <div class="form-group">
+      <label for="occupation">Occupation</label>
+      <input type="email" class="form-control" [(ngModel)]="occupation" name="occupation">
+    </div>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="email" class="form-control" [(ngModel)]="username" name="username">
+    </div>
+    
+  </fieldset>
+  <input type="submit" class="btn btn-success" value="Submit" />
+  <input type="reset" class="btn btn-danger" value="Reset" />
+
+</form>

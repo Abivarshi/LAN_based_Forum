@@ -1,0 +1,47 @@
+<br />
+<h2>User Request</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Occupation</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of requests">
+      <th scope="row">{{request.first_name}} {{request.last_name}}</th>
+      <td>{{request.occupation}}</td>
+      <td>{{request.phone}}</td>
+      <td>{{request.email}}</td>
+      <td><input type="button" (click)="acceptUser(request)" value="Accept" class="btn btn-success" /></td>
+      <td><input type="button" (click)="rejectUser(request._id)" value="Reject" class="btn btn-danger" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<h2>Workers Detail</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Occupation</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.first_name}} {{user.last_name}}</th>
+      <td>{{user.occupation}}</td>
+      <td>{{user.phone}}</td>
+      <td>{{user.email}}</td>
+      <td><input type="button" (click)="deleteUser(user._id)" value="Delete" class="btn btn-danger" /></td>
+    </tr>
+  </tbody>
+</table>
