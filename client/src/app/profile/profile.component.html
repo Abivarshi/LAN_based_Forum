@@ -1,72 +1,87 @@
 <div *ngIf="user">
-  <br />
-  <h2 class="page-header">{{user.first_name}} {{user.last_name}}</h2>
-  <ul class="list-group">
-    <li class="list-group-item">First name : {{user.first_name}}</li>
-    <li class="list-group-item">Last name : {{user.last_name}}</li>
-    <li class="list-group-item">Occupation : {{user.occupation}}</li>
-    <li class="list-group-item">Phone : {{user.phone}}</li>
-    <li class="list-group-item">Email : {{user.email}}</li>
-  </ul>
-  <br />
-  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editDetailModal">Edit</button>
-  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#changePwdModal">Change Password</button>
+  <h2>{{user.first_name}} {{user.last_name}}</h2><br />
+  <table class="table table-hover" style="width:50%">
+    <tr>
+      <th scope="row">First name :</th>
+      <td>{{user.first_name}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Last name :</th>
+      <td>{{user.last_name}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Occupation :</th>
+      <td>{{user.occupation}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Phone :</th>
+      <td>{{user.phone}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Email :</th>
+      <td>{{user.email}}</td>
+    </tr>
+  </table>
+    
+    <br />
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDetailModal">Edit</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePwdModal">Change Password</button>
 
-  <div class="modal" id="editDetailModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit detail</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form (submit)="editProfile()" id="editProfile">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" [(ngModel)]="first_name" name="first_name" class="form-control" required />
-              <label>Last Name</label>
-              <input type="text" [(ngModel)]="last_name" name="last_name" class="form-control" required />
-              <label>Occupation Name</label>
-              <input type="text" [(ngModel)]="occupation" name="occupation" class="form-control" required />
-              <label>Phone</label>
-              <input type="text" [(ngModel)]="phone" name="phone" class="form-control" required />
-              <label>Email</label>
-              <input type="text" [(ngModel)]="email" name="email" class="form-control" required />
-            </div>
-            <input type="submit" class="btn btn-success" value="Change" />
-            <input type="reset" class="btn btn-danger" value="Reset" />
-          </form>
+    <div class="modal" id="editDetailModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit detail</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (submit)="editProfile()" id="editProfile">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" [(ngModel)]="first_name" name="first_name" class="form-control" required />
+                <label>Last Name</label>
+                <input type="text" [(ngModel)]="last_name" name="last_name" class="form-control" required />
+                <label>Occupation Name</label>
+                <input type="text" [(ngModel)]="occupation" name="occupation" class="form-control" required />
+                <label>Phone</label>
+                <input type="text" [(ngModel)]="phone" name="phone" class="form-control" required />
+                <label>Email</label>
+                <input type="text" [(ngModel)]="email" name="email" class="form-control" required />
+              </div>
+              <input type="submit" class="btn btn-success" value="Change" />
+              <input type="reset" class="btn btn-danger" value="Reset" />
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="modal" id="changePwdModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Change Password</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form (submit)="changePwd()">
-            <div class="form-group">
-              <label for="password">Your Password</label>
-              <input type="password" [(ngModel)]="old_password" name="old_password" class="form-control" required />
-              <label for="password">New Password</label>
-              <input type="password" [(ngModel)]="new_password" name="new_password" class="form-control" required />
-              <label for="password">Conform New Password</label>
-              <input type="password" [(ngModel)]="conform_password" name="conform_password" class="form-control" required />
-            </div>
-            <input type="submit" class="btn btn-success" value="Change" />
-            <input type="reset" class="btn btn-danger" value="Reset" />
-          </form>
+    <div class="modal" id="changePwdModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Change Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (submit)="changePwd()">
+              <div class="form-group">
+                <label for="password">Your Password</label>
+                <input type="password" [(ngModel)]="old_password" name="old_password" class="form-control" required />
+                <label for="password">New Password</label>
+                <input type="password" [(ngModel)]="new_password" name="new_password" class="form-control" required />
+                <label for="password">Conform New Password</label>
+                <input type="password" [(ngModel)]="conform_password" name="conform_password" class="form-control" required />
+              </div>
+              <input type="submit" class="btn btn-success" value="Change" />
+              <input type="reset" class="btn btn-danger" value="Reset" />
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </div>

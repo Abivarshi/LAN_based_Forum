@@ -6,15 +6,18 @@
   <br />
   <div class="jumbotron">
     <div *ngFor="let message of messages">
-      <p>{{message}}</p>
+      <p>{{first_name}} : {{message}}</p>
     </div>
+    <img id="img-stream2" src="" />
   </div>
 
   <input [(ngModel)]="message" (keyup)="$event.keyCode == 13 && sendMessage()" class="form-control" />
   <button (click)="sendMessage()">Send</button>
+  <input type="file" [(ngModel)]="image" (keyup)="$event.keyCode == 13 && sendImage()"/>
+  <button (click)="sendImage()">Send Image</button>
 </div>
 
-<div class="modal" id="addGroupModal" role="dialog">
+<div class="modal" id="addClientModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

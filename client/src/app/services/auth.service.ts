@@ -131,11 +131,11 @@ export class AuthService {
   }
 
   isAdmin() {
-    return (this.id == "5af20c20d9677d001495078a" && tokenNotExpired('id_token'));
+    return (this.id == "5aeec8a7ec9c300014700f29" && tokenNotExpired('id_token'));
   }
 
   isWorker() {
-    return (this.id != "5af20c20d9677d001495078a" && tokenNotExpired('id_token'));
+    return (this.id != "5aeec8a7ec9c300014700f29" && tokenNotExpired('id_token'));
   }
 
   logout() {

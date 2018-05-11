@@ -30,6 +30,11 @@ const UserSchema = mongoose.Schema({
     username: {
         type: String,
         required: true
+    },
+    img: {
+        data: Buffer,
+        contentType: String,
+        required: false
     }
 });
 

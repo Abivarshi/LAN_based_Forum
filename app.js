@@ -10,6 +10,7 @@ var ip = require('ip');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var ss = require('socket.io-stream');
 var fs = require('fs');
 
 const route = require('./routes/route');
@@ -69,10 +70,30 @@ io.on('connection', (socket) => {
 
 /*
 io.on('connection', function (socket) {
-    fs.readFile('D:\LDF_Photo\1.jpg', function (err, buf) {
+    fs.readFile('../../ LDF_Photo / 3.png', function (err, buf) {
         // it's possible to embed binary data
         // within arbitrarily-complex objects
-        socket.emit('image', { image: true, buffer: buf.toString('base64') });
+        socket.emit('image', { image: true, buffer: buf });
         console.log('image file is initialized');
     });
 });*/
+
+io.on('connection', function (socket) {
+    var readStream = fs.createReadStream('../../LDF_Photo/1.jpg', {
+        encoding:'binary'
+    }), chunks = [];
+
+    readStream.on('readable', function () {
+        console.log('Image loading');
+    });
+
+    readStream.on('data', function (chunk) {
+        chunks.push(chunk);
+        socket.emit('img-chunk', chunk);
+    });
+
+    readStream.on('end', function () {
+        console.log('Image loaded');
+    });
+});
+

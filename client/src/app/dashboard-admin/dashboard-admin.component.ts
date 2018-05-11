@@ -47,7 +47,11 @@ export class DashboardAdminComponent implements OnInit {
       phone: request.phone,
       occupation: request.occupation,
       email: request.email,
-      username: request.username
+      username: request.username,
+      img: {
+        data: request.img.data,
+        contentType: request.img.contentType
+      }
     }
 
     this.authService.addUser(user).subscribe(data => {
@@ -58,7 +62,7 @@ export class DashboardAdminComponent implements OnInit {
         this.flashMessage.show('Something went wrong..', { cssClass: 'alert-danger', timeout: 1000 });
       }
     });
-    this.rejectUser(request._id);
+    //this.rejectUser(request._id);
   }
 
   deleteUser(id: any) {

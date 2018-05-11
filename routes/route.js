@@ -6,14 +6,11 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 var app = express();
 var server = require('http').createServer(app);
-
+var fs = require('fs');
 
 const User = require("../models/user");
 const UserRequest = require("../models/request");
 const Group = require("../models/group");
-var Chat = require('../models/Chat.js');
-
-
 
 router.get('/users', (req, res, next) => {
     User.find(function (err, users) {
@@ -27,7 +24,16 @@ router.get('/requests', (req, res, next) => {
     })
 });
 
+router.get('/profile/:userId/picture', function (req, res, next) {
+    UserRequest.findById(req.params.userId, function (err, user) {
+        if (err) return next(err);
+        res.contentType(user.img.contentType);
+        res.send(user.img.data);
+    });
+});
+
 router.post('/register', (req, res, next) => {
+    var imgPath = '../../LDF_Photo/3.png';
     let newUser = new UserRequest({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -36,7 +42,8 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username
     });
-    console.log(newUser);
+    newUser.img.data = fs.readFileSync(imgPath);
+    newUser.img.contentType = 'image/png';
     newUser.save(err => {
         if (err) {
             res.json(err);
@@ -49,6 +56,7 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/addUser', (req, res, next) => {
+    var imgSrc = "http://192.168.0.1:3000/api/profile/request.body._id/picture";
     let newUser = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -58,7 +66,8 @@ router.post('/addUser', (req, res, next) => {
         username: req.body.username,
         password: "x"
     });
-
+    //newUser.img.data = fs.readFileSync(imgSrc);
+    //newUser.img.contentType = 'image/png';
     User.addUser(newUser, (err, user) => {
         if (err) {
             res.json({ msg: 'Failed to add user' });

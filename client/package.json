@@ -26,6 +26,7 @@
     "core-js": "^2.4.1",
     "ip": "^1.1.5",
     "rxjs": "^5.5.6",
+    "socket.io-stream": "^0.9.1",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

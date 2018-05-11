@@ -1,5 +1,6 @@
+<h1>Register</h1>
 <form (submit)="onRegisterSubmit()">
-  <fieldset>
+  <fieldset class=" col-md-4" style="position:center">
     <div class="form-group">
       <label for="first_name">First Name</label>
       <input type="email" class="form-control" [(ngModel)]="first_name" name="first_name">
@@ -25,9 +26,9 @@
       <label for="username">Username</label>
       <input type="email" class="form-control" [(ngModel)]="username" name="username">
     </div>
-    
-  </fieldset>
-  <input type="submit" class="btn btn-success" value="Submit" />
-  <input type="reset" class="btn btn-danger" value="Reset" />
+    <input type="submit" class="btn btn-primary mr-auto" style="margin-left:50px" value="Submit" />
+    <input type="reset" class="btn btn-danger" style="margin-left:100px" value="Reset" />
 
+  </fieldset>
+  
 </form>
