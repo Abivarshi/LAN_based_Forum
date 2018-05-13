@@ -1,54 +1,65 @@
-<h3>Discussions</h3>
+<h1>Discussions</h1><br />
 <div class="row">
-  <div class="col-md-4 col-sm-4" *ngFor="let group of groups">
-    <div class="card mb-3" style="max-width: 20rem;">
-      <h3 class="card-header">{{group.group_name}}</h3>
+  <div class="col-md-4">
+    <div class="card text-white border-secondary mb-3" style="width: 20rem; min-height:50rem">
+      <h3 class="card-header bg-primary text-white"><i class="fa fa-bell-o" style="font-size:24px"></i> Notifications</h3>
       <div class="card-body">
-        <h5 class="card-title">Admin :</h5>
-        <h6 class="card-subtitle text-muted">{{group.admin.first_name}}</h6><br />
-        <h5 class="card-title">Clients :</h5>
-        <div *ngFor="let client of group.client">
-          <h6 class="card-subtitle text-muted">{{client.first_name}}</h6><br />
+        <div *ngFor="let notification of notifications">>
+          <div class="alert alert-dismissible alert-light">
+            <button type="button" class="close" data-dismiss="alert" (click)="removeNotification(notification._id)">&times;</button>
+            <strong>New Group!</strong>
+            {{notification.data}}
+          </div>
         </div>
-      </div>
-      <div class="card-footer text-muted">
-        <button type="button" class="btn btn-primary btn-lg btn-block" (click)="joinChat(group._id)" style="max-width: 25rem;">Join Discussion</button>
       </div>
     </div>
   </div>
-  <div class="col-md-4 col-sm-4">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addGroupModal">New Group</button>
-  </div>
-</div>
 
-<div class="modal" id="addGroupModal" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create Group</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form (submit)="addGroup()">
-          <div class="form-group">
-            <label>Group Name</label>
-            <input type="text" [(ngModel)]="group_name" name="group_name" class="form-control" required />
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="card text-white bg-primary mb-3" style="width: 20rem; max-height:30rem">
+          <h3 class="card-header">Create Group</h3>
+          <div class="card-body">
+            <form (submit)="addGroup()">
+              <div class="form-group">
+                <label>Group Name</label>
+                <input type="text" [(ngModel)]="group_name" name="group_name" class="form-control" required />
+              </div>
+              <fieldset class="form-group">
+                <legend>Invite Members</legend>
+                <div class="form-check" *ngFor="let user of users">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="client" (change)="addClient(user, $event.target.checked)">
+                    {{user.first_name}} {{user.last_name}}
+                  </label>
+                </div>
+              </fieldset>
+              <div class="card-footer text-muted">
+                <input type="submit" class="btn btn-secondary btn-lg btn-block" value="Add Group" />
+              </div>
+            </form>
           </div>
-          <fieldset class="form-group">
-            <legend>Invite Members</legend>
-            <div class="form-check" *ngFor="let user of users">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="client" (change)="addClient(user, $event.target.checked)">
-                {{user.first_name}} {{user.last_name}}
-              </label>
-            </div>
-          </fieldset>
-          <input type="submit" class="btn btn-success" value="Add" />
-          <input type="reset" class="btn btn-danger" value="Reset" />
-        </form>
+        </div>
       </div>
+
+      <div class="col-md-6 col-sm-6" *ngFor="let group of groups">
+        <div class="card border-light mb-3" style="width: 20rem;">
+          <h3 class="card-header">{{group.group_name}}</h3>
+          <div class="card-body">
+            <h5 class="card-title">Admin :</h5>
+            <h6 class="card-subtitle text-muted">{{group.admin.first_name}}</h6><br />
+            <h5 class="card-title">Clients :</h5>
+            <div *ngFor="let client of group.client">
+              <h6 class="card-subtitle text-muted">{{client.first_name}}</h6><br />
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+            <button type="button" class="btn btn-primary btn-lg btn-block" (click)="joinChat(group._id)" style="max-width: 25rem;">Join Discussion</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

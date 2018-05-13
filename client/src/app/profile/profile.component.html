@@ -24,7 +24,7 @@
   </table>
     
     <br />
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDetailModal">Edit</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDetailModal">Edit Detail</button>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePwdModal">Change Password</button>
 
     <div class="modal" id="editDetailModal" role="dialog">
@@ -50,8 +50,10 @@
                 <label>Email</label>
                 <input type="text" [(ngModel)]="email" name="email" class="form-control" required />
               </div>
-              <input type="submit" class="btn btn-success" value="Change" />
-              <input type="reset" class="btn btn-danger" value="Reset" />
+              <div class="modal-footer">
+                <input type="reset" class="btn btn-danger" value="Reset" />
+                <input type="submit" class="btn btn-primary" value="Change" />
+              </div>
             </form>
           </div>
         </div>
@@ -71,14 +73,16 @@
             <form (submit)="changePwd()">
               <div class="form-group">
                 <label for="password">Your Password</label>
-                <input type="password" [(ngModel)]="old_password" name="old_password" class="form-control" required />
+                <input type="password" [(ngModel)]="password" name="old_password" class="form-control" required />
                 <label for="password">New Password</label>
                 <input type="password" [(ngModel)]="new_password" name="new_password" class="form-control" required />
                 <label for="password">Conform New Password</label>
                 <input type="password" [(ngModel)]="conform_password" name="conform_password" class="form-control" required />
               </div>
-              <input type="submit" class="btn btn-success" value="Change" />
-              <input type="reset" class="btn btn-danger" value="Reset" />
+              <div class="modal-footer">
+                <input type="reset" class="btn btn-danger" value="Reset" />
+                <input type="submit" class="btn btn-primary" value="Change" />
+              </div>
             </form>
           </div>
         </div>

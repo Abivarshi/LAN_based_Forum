@@ -20,7 +20,10 @@ export class ChatComponent implements OnInit {
   first_name: string;
   last_name: string;
   message: string;
+  sender: string;
   messages: string[] = [];
+  senders: string[] = [];
+  imgChunks = [];
   image: any;
 
   users: user[];
@@ -30,6 +33,8 @@ export class ChatComponent implements OnInit {
   group_name: string;
   admin: user;
   client: user[] = [];
+  newClient: user[] = [];
+
   constructor(
     private chatService: ChatService,
     private authService: AuthService,
@@ -44,13 +49,23 @@ export class ChatComponent implements OnInit {
 
     this.chatService
       .getMessages()
-      .subscribe((message: string) => {
-        this.messages.push(message);
+      .subscribe((data) => {
+        this.messages.push(data);
       });
+
+    /*this.chatService
+      .getImages()
+      .subsribe((chunk: string) => {
+        console.log(this.imgChunks);
+        var img = document.getElementById('img-stream2');
+        this.imgChunks.push(chunk);
+        img.setAttribute('src', 'data:image/jpeg;base64,' + window.btoa(chunk));
+      });*/
 
     this.authService.getProfile().subscribe(user => {
       this.id = user._id;
       this.first_name = user.first_name;
+      this.sender = user.first_name;
       this.last_name = user.last_name;
     },
       err => {
@@ -71,13 +86,30 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    this.chatService.sendMessage(this.message);
+    this.chatService.sendMessage(this.message, this.sender);
     this.message = '';
   }
 
   sendImage() {
     this.chatService.sendImage(this.image);
     this.image = '';
+  }
+
+  addClient(user: user, isChecked: boolean) {
+    console.log(this.newClient);
+    if (isChecked) {
+      this.newClient.push(user);
+    }
+    for (let client of this.newClient) {
+      this.authService.addGroup(client)
+        .subscribe(data => {
+          console.log(data.msg);
+        },
+        err => {
+          console.log(err);
+          return false;
+        });
+    }    
   }
 
 }

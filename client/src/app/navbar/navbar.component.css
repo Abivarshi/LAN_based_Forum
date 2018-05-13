@@ -1,0 +1,119 @@
+/*Notification*/
+
+.notification-list {
+  margin-left: 0 !important;
+}
+
+  .notification-list .noti-title {
+    border-radius: 0.25rem 0.25rem 0 0;
+    background-color: #64c5b1;
+    margin: -6px -1px 0px -1px;
+    width: auto;
+    padding: 12px 20px;
+  }
+
+    .notification-list .noti-title h5 {
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .notification-list .noti-title .label {
+      float: right;
+    }
+
+  .notification-list .noti-icon {
+    font-size: 22px;
+    padding: 0 12px;
+    vertical-align: middle;
+    color: rgba(49, 58, 70, 0.8);
+  }
+
+  .notification-list .noti-icon-badge {
+    display: inline-block;
+    position: absolute;
+    top: 14px;
+    right: 8px;
+  }
+
+  .notification-list .notify-item {
+    padding: 10px 20px;
+  }
+
+    .notification-list .notify-item .notify-icon {
+      float: left;
+      height: 36px;
+      width: 36px;
+      line-height: 36px;
+      text-align: center;
+      margin-right: 10px;
+      border-radius: 50%;
+      color: #ffffff;
+    }
+
+      .notification-list .notify-item .notify-icon img {
+        margin-top: 4px;
+      }
+
+    .notification-list .notify-item .notify-details {
+      margin-bottom: 0;
+      overflow: hidden;
+      margin-left: 45px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+      .notification-list .notify-item .notify-details b {
+        font-weight: 500;
+      }
+
+      .notification-list .notify-item .notify-details small {
+        display: block;
+      }
+
+      .notification-list .notify-item .notify-details span {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 13px;
+      }
+
+  .notification-list .notify-all {
+    border-radius: 0 0 0.25rem 0.25rem;
+    margin: 0 0 -5px 0;
+    background-color: #e2e2e2;
+  }
+
+  .notification-list .profile-dropdown .notify-item {
+    padding: 4px 20px;
+  }
+
+.profile-dropdown {
+  width: 170px;
+}
+
+  .profile-dropdown i {
+    font-size: 17px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+
+  .profile-dropdown span {
+    vertical-align: middle;
+  }
+
+.nav-user {
+  padding: 0 12px !important;
+}
+
+  .nav-user img {
+    height: 36px;
+    width: 36px;
+  }
+
+.header-title {
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 14px;
+}

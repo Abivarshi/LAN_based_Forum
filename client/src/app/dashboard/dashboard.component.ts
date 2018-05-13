@@ -12,12 +12,14 @@ import { group } from '../group';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  user: user;
   users: user[];
   groups: group[];
   group: group;
   group_name: string;
   admin: user;
   client: user[] = [];
+  notifications: any;
 
   constructor(
     private authService: AuthService,
@@ -26,14 +28,35 @@ export class DashboardComponent implements OnInit {
     private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe(user => {
+      this.user = user;
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
+
     this.userService.getUser()
       .subscribe(users =>
         this.users = users);
+
+    this.authService.getNotification().subscribe(notifications => {
+      console.log(notifications)
+      this.notifications = notifications;
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
 
     this.getGroups();
   }
 
   joinChat(id) {
+    this.authService.addClient(this.user, id)
+      .subscribe(data => {
+        console.log(data.msg);
+      });
     this.router.navigate(['chat']);
   }
 
@@ -47,6 +70,18 @@ export class DashboardComponent implements OnInit {
         console.log(group);
         this.groups.push(group);
       });
+
+    for (let nClient of this.client) {
+      const newNotification = {
+        userID: nClient._id,
+        data: "You are invited to new Discussion '" + this.group_name + "' created by " + this.user.first_name
+      }
+      this.authService.addNotification(newNotification)
+        .subscribe(data => {
+          console.log(data);
+        });
+    }
+    
   }
 
   getGroups() {
@@ -60,10 +95,19 @@ export class DashboardComponent implements OnInit {
   }
 
   addClient(user: user, isChecked: boolean) {
-    console.log(this.client);
     if (isChecked) {
       this.client.push(user);
     }
+  }
+
+  removeNotification(id) {
+    this.authService.removeNotification(id).subscribe(result => {
+      console.log(result);
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
 }

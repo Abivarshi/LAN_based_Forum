@@ -49,8 +49,13 @@ export class ProfileComponent implements OnInit {
       occupation: this.occupation,
       email: this.email
     }
-    this.authService.editProfile(newUser).subscribe(user => {
-      this.user = user;
+    this.authService.editProfile(newUser).subscribe(data => {
+      this.user = data.user;
+      if (data.success) {
+        this.flashMessage.show(data.msg, { cssClass: 'alert-success', timeout: 5000 });
+      } else {
+        this.flashMessage.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
+      }
     },
       err => {
         console.log(err);
@@ -65,15 +70,21 @@ export class ProfileComponent implements OnInit {
       conform_password: this.conform_password
     }
     if (pwd.new_password == pwd.conform_password) {
-      this.authService.changePwd(pwd).subscribe(user => {
-        this.user = user;
+      this.authService.changePwd(pwd).subscribe(data => {
+        this.user = data.user;
+        if (data.success) {
+          this.flashMessage.show(data.msg, { cssClass: 'alert-success', timeout: 5000 });
+        } else {
+          this.flashMessage.show(data.msg, { cssClass: 'alert-danger', timeout: 5000 });
+        }
       },
         err => {
           console.log(err);
           return false;
-        });
+        });      
+      
     } else {
-      this.flashMessage.show("New password ", { cssClass: 'alert-danger', timeout: 5000 });
+      this.flashMessage.show("New password is not match with the conform password", { cssClass: 'alert-danger', timeout: 5000 });
       this.router.navigate(['profile']);
     }
   }

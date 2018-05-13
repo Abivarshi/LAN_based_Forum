@@ -11,6 +11,7 @@ var fs = require('fs');
 const User = require("../models/user");
 const UserRequest = require("../models/request");
 const Group = require("../models/group");
+const Notification = require("../models/notification");
 
 router.get('/users', (req, res, next) => {
     User.find(function (err, users) {
@@ -78,6 +79,42 @@ router.post('/addUser', (req, res, next) => {
     });
 });
 
+router.post('/addNotification', (req, res, next) => {
+    let newNotification = new Notification({
+        userID: req.body.userID,
+        data: req.body.data
+    });
+    newNotification.save((err, notify) => {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(notify);
+        }
+    }); 
+});
+
+router.delete('/removeNotification/:id', (req, res, next) => {
+    Notification.remove({ _id: req.params.id }, function (err, result) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(result)
+        }
+    });
+});
+
+router.get('/getNotification/:id', (req, res, next) => {
+    Notification.find({ 'userID': req.params.id }, function (err, result) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(result)
+        }
+    });
+});
+
+
 router.put("/update/:id", (req, res, next) => {
     User.findById({ _id: req.params.id }, function (err, user) {
         if (err) {
@@ -91,10 +128,10 @@ router.put("/update/:id", (req, res, next) => {
 
             user.save(function (err, user) {
                 if (err) {
-                    res.json({ msg: 'Failed to update user detail' });
+                    res.json({ success: false, msg: 'Failed to update user detail' });
                 }
                 else {
-                    res.json(user);
+                    res.json({ success: true, msg: 'Details changed Successfully', user: user });
                 }
             })
         }
@@ -104,6 +141,7 @@ router.put("/update/:id", (req, res, next) => {
 router.put("/changePwd/:id", (req, res, next) => {
     const password = req.body.password;
     const new_password = req.body.new_password;
+    console.log(password, new_password);
     User.findById({ _id: req.params.id }, function (err, user) {
         if (err) {
             handleError(res, err.message, "Failed to update contact");
@@ -115,14 +153,14 @@ router.put("/changePwd/:id", (req, res, next) => {
 
                     User.addUser(user, (err, user) => {
                         if (err) {
-                            res.json({ msg: 'Failed to change Password' });
+                            res.json({ success:false, msg: 'Failed to change Password' });
                         }
                         else {
-                            res.json({ success: true, msg: 'Password changed', user: user });
+                            res.json({ success: true, msg: 'Password changed Successfully', user: user });
                         }
                     });
                 } else {
-                    return res.json({ success: false, msg: 'Wrong Password', user: user });
+                    return res.json({ success: false, msg: 'Wrong Password.. Please try again', user: user });
                 }
             });
         }
@@ -154,14 +192,20 @@ router.post('/addGroup/:id', (req, res, next) => {
 });
 
 router.post('/addClient/:id', (req, res, next) => {
-    models.User.findOne({ '_id': req.params.id }, function (err, newClient) {
+    Group.findOne({ '_id': req.params.id }, function (err, findGroup) {
         if (err) {
             res.json({ msg: 'Failed to add client' });
             return next(err);
         }
         else {
-            group.clients.push(newClient);
-            res.json({ msg: 'New Client added successfully' });
+            Group.update(
+                { "_id": req.params.id },
+                { "$push": { "client": req.body } },
+                function (err, raw) {
+                    if (err) return handleError(err);
+                    res.json({ msg: 'New Client added successfully' });
+                }
+            );
         }
     });
 });

@@ -6,35 +6,34 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
   private url = 'http://localhost:3000';
   socket: any;
-  imgChunks: string[] =[];
   
   constructor() {
     this.socket = io(this.url);
-    this.getImages();
+    //this.getImages();
   }
 
-  sendMessage(message) {
-    this.socket.emit('new-message', message);
+  sendMessage(message, sender) {
+    this.socket.emit('new-message', { message: message, sender: sender });
   }
 
   sendImage(image) {
-    this.socket.emit('new-image', image);
+    this.socket.emit('img-chunk', image);
   }
 
   getMessages = () => {
     return Observable.create((observer) => {
-      this.socket.on('new-message', (message) => {
-        observer.next(message);
+      this.socket.on('new-message', (data) => {
+        observer.next(data);
       });
     });
   }
 
   getImages = () => {
-    this.socket.on('img-chunk', function (chunk) {
-      console.log(this.imgChunks);
-      var img = document.getElementById('img-stream2');
-      this.imgChunks.push(chunk);
-      img.setAttribute('src', 'data:image/jpeg;base64,' + window.btoa(this.imgChunks));
+    return Observable.create((observer) => {
+      this.socket.on('img-chunk', function (chunk) {
+        observer.next(chunk);
+      });
     });    
   }
+
 }

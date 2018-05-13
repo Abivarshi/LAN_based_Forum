@@ -82,6 +82,25 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  addNotification(data) {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/api/addNotification', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  removeNotification(id) {
+    return this.http.delete('http://localhost:3000/api/removeNotification/' + id)
+      .map(res => res.json());
+  }
+
+  getNotification() {
+    const id = this.loadId();
+    var headers = new Headers();
+    return this.http.get('http://localhost:3000/api/getNotification/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+
   getGroup() {
     var headers = new Headers();
     return this.http.get('http://localhost:3000/api/groups', { headers: headers })
@@ -96,10 +115,10 @@ export class AuthService {
       .map(res => res.json());
   }
 
-  addClient(user) {
+  addClient(user, id) {
     var headers = new Headers();
-    const id = user._id;
-    return this.http.put('http://localhost:3000/api/addclient/' + id, user, { headers: headers })
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/api/addClient/' + id, user, { headers: headers })
       .map(res => res.json());
   }
 
