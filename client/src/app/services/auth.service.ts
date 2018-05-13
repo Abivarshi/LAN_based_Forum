@@ -17,21 +17,21 @@ export class AuthService {
   registerUser(user) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/register', user, { headers: headers })
+    return this.http.post('http://192.168.0.1:3000/api/register', user, { headers: headers })
       .map(res => res.json());
   }
 
   addUser(user) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/addUser', user, { headers: headers })
+    return this.http.post('http://192.168.0.1:3000/api/addUser', user, { headers: headers })
       .map(res => res.json());
   }
 
   authenticateUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/authenticate', user, { headers: headers })
+    return this.http.post('http://192.168.0.1:3000/api/authenticate', user, { headers: headers })
       .map(res => res.json());
   }
   /*
@@ -40,7 +40,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/api/profile', { headers: headers })
+    return this.http.get('http://192.168.0.1:3000/api/profile', { headers: headers })
       .map(res => res.json());
   }
 
@@ -64,46 +64,46 @@ export class AuthService {
   getProfile() {
     var headers = new Headers();
     const id = this.loadId();
-    return this.http.get('http://localhost:3000/api/profile/' + id, { headers: headers })
+    return this.http.get('http://192.168.0.1:3000/api/profile/' + id, { headers: headers })
       .map(res => res.json());
   }
 
   editProfile(user) {
     var headers = new Headers();
     const id = this.loadId();
-    return this.http.put('http://localhost:3000/api/update/' + id, user, { headers: headers })
+    return this.http.put('http://192.168.0.1:3000/api/update/' + id, user, { headers: headers })
       .map(res => res.json());
   }
 
   changePwd(pwd) {
     var headers = new Headers();
     const id = this.loadId();
-    return this.http.put('http://localhost:3000/api/changePwd/' + id, pwd, { headers: headers })
+    return this.http.put('http://192.168.0.1:3000/api/changePwd/' + id, pwd, { headers: headers })
       .map(res => res.json());
   }
 
   addNotification(data) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/addNotification', data, { headers: headers })
+    return this.http.post('http://192.168.0.1:3000/api/addNotification', data, { headers: headers })
       .map(res => res.json());
   }
 
   removeNotification(id) {
-    return this.http.delete('http://localhost:3000/api/removeNotification/' + id)
+    return this.http.delete('http://192.168.0.1:3000/api/removeNotification/' + id)
       .map(res => res.json());
   }
 
   getNotification() {
     const id = this.loadId();
     var headers = new Headers();
-    return this.http.get('http://localhost:3000/api/getNotification/' + id, { headers: headers })
+    return this.http.get('http://192.168.0.1:3000/api/getNotification/' + id, { headers: headers })
       .map(res => res.json());
   }
 
   getGroup() {
     var headers = new Headers();
-    return this.http.get('http://localhost:3000/api/groups', { headers: headers })
+    return this.http.get('http://192.168.0.1:3000/api/groups', { headers: headers })
       .map(res => res.json());
   }
 
@@ -111,20 +111,20 @@ export class AuthService {
     var headers = new Headers();
     const id = this.loadId();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/addGroup/' + id, newGroup, { headers: headers })
+    return this.http.post('http://192.168.0.1:3000/api/addGroup/' + id, newGroup, { headers: headers })
       .map(res => res.json());
   }
 
   addClient(user, id) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/addClient/' + id, user, { headers: headers })
+    return this.http.post('http://192.168.0.1:3000/api/addClient/' + id, user, { headers: headers })
       .map(res => res.json());
   }
 
   getCurrentGroup(id) {
     var headers = new Headers();
-    return this.http.get('http://localhost:3000/api/group/' + id, { headers: headers })
+    return this.http.get('http://192.168.0.1:3000/api/group/' + id, { headers: headers })
       .map(res => res.json());
   }
 
