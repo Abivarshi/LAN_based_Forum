@@ -1047,19 +1047,19 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://192.168.0.1:3000/api/register', user, { headers: headers })
+        return this.http.post('/api/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://192.168.0.1:3000/api/addUser', user, { headers: headers })
+        return this.http.post('/api/addUser', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://192.168.0.1:3000/api/authenticate', user, { headers: headers })
+        return this.http.post('/api/authenticate', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     /*
@@ -1068,7 +1068,7 @@ var AuthService = /** @class */ (function () {
       this.loadToken();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type', 'application/json');
-      return this.http.get('http://192.168.0.1:3000/api/profile', { headers: headers })
+      return this.http.get('/api/profile', { headers: headers })
         .map(res => res.json());
     }
   
@@ -1091,58 +1091,58 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.getProfile = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
-        return this.http.get('http://192.168.0.1:3000/api/profile/' + id, { headers: headers })
+        return this.http.get('/api/profile/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.editProfile = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
-        return this.http.put('http://192.168.0.1:3000/api/update/' + id, user, { headers: headers })
+        return this.http.put('/api/update/' + id, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.changePwd = function (pwd) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
-        return this.http.put('http://192.168.0.1:3000/api/changePwd/' + id, pwd, { headers: headers })
+        return this.http.put('/api/changePwd/' + id, pwd, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addNotification = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://192.168.0.1:3000/api/addNotification', data, { headers: headers })
+        return this.http.post('/api/addNotification', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.removeNotification = function (id) {
-        return this.http.delete('http://192.168.0.1:3000/api/removeNotification/' + id)
+        return this.http.delete('/api/removeNotification/' + id)
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getNotification = function () {
         var id = this.loadId();
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        return this.http.get('http://192.168.0.1:3000/api/getNotification/' + id, { headers: headers })
+        return this.http.get('/api/getNotification/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getGroup = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        return this.http.get('http://192.168.0.1:3000/api/groups', { headers: headers })
+        return this.http.get('/api/groups', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addGroup = function (newGroup) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://192.168.0.1:3000/api/addGroup/' + id, newGroup, { headers: headers })
+        return this.http.post('/api/addGroup/' + id, newGroup, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addClient = function (user, id) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://192.168.0.1:3000/api/addClient/' + id, user, { headers: headers })
+        return this.http.post('/api/addClient/' + id, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getCurrentGroup = function (id) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        return this.http.get('http://192.168.0.1:3000/api/group/' + id, { headers: headers })
+        return this.http.get('/api/group/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, id, user) {
@@ -1209,7 +1209,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ChatService = /** @class */ (function () {
     function ChatService() {
         var _this = this;
-        this.url = 'http://192.168.0.1:3000';
+        this.url = '/';
         this.getMessages = function () {
             return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].create(function (observer) {
                 _this.socket.on('new-message', function (data) {
@@ -1269,25 +1269,25 @@ var UserService = /** @class */ (function () {
         this.http = http;
     }
     UserService.prototype.getUser = function () {
-        return this.http.get('http://192.168.0.1:3000/api/users')
+        return this.http.get('/api/users')
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.getUserRequest = function () {
-        return this.http.get('http://192.168.0.1:3000/api/requests')
+        return this.http.get('/api/requests')
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.addUser = function (newUser) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://192.168.0.1:3000/api/adduser', newUser, { headers: headers })
+        return this.http.post('/api/adduser', newUser, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.deleteUser = function (id) {
-        return this.http.delete('http://192.168.0.1:3000/api/user/' + id)
+        return this.http.delete('/api/user/' + id)
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.deleteUserRequest = function (id) {
-        return this.http.delete('http://192.168.0.1:3000/api/deleterequest/' + id)
+        return this.http.delete('/api/deleterequest/' + id)
             .map(function (res) { return res.json(); });
     };
     UserService = __decorate([
