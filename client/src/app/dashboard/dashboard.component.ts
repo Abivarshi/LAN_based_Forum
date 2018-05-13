@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { ChatService } from '../services/chat.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { user } from '../user';
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private chatService: ChatService,
     private router: Router,
     private flashMessage: FlashMessagesService) { }
 
@@ -41,7 +43,6 @@ export class DashboardComponent implements OnInit {
         this.users = users);
 
     this.authService.getNotification().subscribe(notifications => {
-      console.log(notifications)
       this.notifications = notifications;
     },
       err => {
@@ -52,12 +53,23 @@ export class DashboardComponent implements OnInit {
     this.getGroups();
   }
 
-  joinChat(id) {
-    this.authService.addClient(this.user, id)
-      .subscribe(data => {
-        console.log(data.msg);
-      });
-    this.router.navigate(['chat']);
+  joinChat(group) {
+    var oldClient = false;
+    for (let nClient of group.client) {
+      if (this.user._id === nClient._id) {
+        oldClient = true;
+      }
+    }
+    if (this.user._id === group.admin._id) {
+      oldClient = true;
+    }
+    if (oldClient === false) {
+      this.authService.addClient(this.user, group._id)
+        .subscribe(data => {
+          console.log(data.msg);
+        });
+    }
+    this.router.navigate(['chat/' + group._id]);
   }
 
   addGroup() {
@@ -67,7 +79,6 @@ export class DashboardComponent implements OnInit {
     }
     this.authService.addGroup(newGroup)
       .subscribe(group => {
-        console.log(group);
         this.groups.push(group);
       });
 
@@ -79,7 +90,7 @@ export class DashboardComponent implements OnInit {
       }
       this.authService.addNotification(newNotification)
         .subscribe(data => {
-          console.log(data);
+          //console.log(data);
         });
     }
     

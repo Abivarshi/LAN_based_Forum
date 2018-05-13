@@ -1,25 +1,27 @@
 <div class="jumbotron" style="min-height:500px;">
   <div *ngFor="let message of messages">
-    <div *ngIf="message.sender === first_name">
-      <div class="row message-body">
-        <div class="col-sm-12 message-main-sender">
-          <div class="sender">
-            <div class="message-text">
-              {{message.message}}
+    <div *ngIf="message.url === this.url">
+      <div *ngIf="message.sender === first_name">
+        <div class="row message-body">
+          <div class="col-sm-12 message-main-sender">
+            <div class="sender">
+              <div class="message-text">
+                {{message.message}}{{message.groupID}}
+              </div>
+              <span class="message-time pull-right">{{message.sender}}</span>
             </div>
-            <span class="message-time pull-right">{{message.sender}}</span>
           </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="message.sender !== first_name">
-      <div class="row message-body">
-        <div class="col-sm-12 message-main-receiver">
-          <div class="receiver">
-            <div class="message-text">
-              {{message.message}}
+      <div *ngIf="message.sender !== first_name">
+        <div class="row message-body">
+          <div class="col-sm-12 message-main-receiver">
+            <div class="receiver">
+              <div class="message-text">
+                {{message.message}}
+              </div>
+              <span class="message-time pull-right">{{message.sender}}</span>
             </div>
-            <span class="message-time pull-right">{{message.sender}}</span>
           </div>
         </div>
       </div>

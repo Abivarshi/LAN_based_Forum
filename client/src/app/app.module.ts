@@ -15,21 +15,20 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
-import { ChatRoomComponent } from './chat-room/chat-room.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './services/user.service';
+import { ChatService } from './services/chat.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'chat', component: ChatComponent },
-  { path: 'chat-room', component: ChatRoomComponent },
+  { path: 'chat/:id', component: ChatComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'user-manage', component: DashboardAdminComponent }
 ]
@@ -44,8 +43,7 @@ const appRoutes: Routes = [
     RegisterComponent,
     ProfileComponent,
     DashboardComponent,
-    DashboardAdminComponent,
-    ChatRoomComponent
+    DashboardAdminComponent
   ],
   imports: [
     HttpClientModule,
@@ -55,7 +53,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule.forRoot()
   ],
-  providers: [HttpClientModule, ValidateService, AuthService, UserService],
+  providers: [HttpClientModule, ValidateService, AuthService, UserService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

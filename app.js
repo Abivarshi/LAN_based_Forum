@@ -63,6 +63,9 @@ server.listen(port, function () {
 //emit messages
 io.on('connection', (socket) => {
     console.log('user connected');
+    socket.on('disconnect', function () {
+        console.log('User disconnected');
+    });
     socket.on('new-message', (data) => {
         io.emit('new-message', data);
     });

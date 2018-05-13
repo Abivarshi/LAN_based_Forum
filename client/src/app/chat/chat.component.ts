@@ -18,20 +18,19 @@ import { ContentType } from '@angular/http/src/enums';
 export class ChatComponent implements OnInit {
   id: string;
   first_name: string;
-  last_name: string;
+  url: any = this.router.url;
   message: string;
   sender: string;
   messages: string[] = [];
-  senders: string[] = [];
   imgChunks = [];
   image: any;
 
   users: user[];
-  groups: group[];
+  /*groups: group[];
   group: group;
   group_id: any;
   group_name: string;
-  admin: user;
+  admin: user;*/
   client: user[] = [];
   newClient: user[] = [];
 
@@ -66,15 +65,15 @@ export class ChatComponent implements OnInit {
       this.id = user._id;
       this.first_name = user.first_name;
       this.sender = user.first_name;
-      this.last_name = user.last_name;
     },
       err => {
         console.log(err);
         return false;
       });
 
-    this.authService.getCurrentGroup(this.group_id).subscribe(group => {
+    /*this.authService.getCurrentGroup(this.chatService.currentGroup).subscribe(group => {
       this.group = group;
+      this.group_id = group._id;
       this.group_name = group.group_name;
       this.admin = group.admin;
       this.client = group.client;
@@ -82,11 +81,11 @@ export class ChatComponent implements OnInit {
       err => {
         console.log(err);
         return false;
-      });
+      });*/
   }
 
   sendMessage() {
-    this.chatService.sendMessage(this.message, this.sender);
+    this.chatService.sendMessage(this.url, this.message, this.sender);
     this.message = '';
   }
 

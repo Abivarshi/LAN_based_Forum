@@ -2,3 +2,8 @@
 .modal-backdrop {
   opacity: 0.5 !important;
 }
+
+.alert-success {
+  background-color: #4DC57E;
+}
+

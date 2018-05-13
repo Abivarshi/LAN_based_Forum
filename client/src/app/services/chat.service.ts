@@ -12,8 +12,8 @@ export class ChatService {
     //this.getImages();
   }
 
-  sendMessage(message, sender) {
-    this.socket.emit('new-message', { message: message, sender: sender });
+  sendMessage(url, message, sender) {
+    this.socket.emit('new-message', { url: url, message: message, sender: sender });
   }
 
   sendImage(image) {
