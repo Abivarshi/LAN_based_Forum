@@ -56,6 +56,10 @@ app.get('/', (req, res) => {
     res.send('foobar');
 });
 
+app.listen(port, function () {
+    console.log("Node Server is setup and it is listening on port:" + port);
+});
+
 server.listen(port, function () {
     console.log("Node Server is setup and it is listening on port" + ip.address());
 });
