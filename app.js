@@ -8,9 +8,9 @@ const path = require('path');
 const config = require('./config/database');
 var ip = require('ip');
 var app = express();
-//var server = require('http').createServer(app);
-//var io = require('socket.io')(server);
-var io = require('socket.io');
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+//var io = require('socket.io');
 var ss = require('socket.io-stream');
 var fs = require('fs');
 

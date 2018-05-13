@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ChatService {
-  private url = '/';
+  private url = 'https://chat-on-lan.herokuapp.com';
   socket: any;
   
   constructor() {

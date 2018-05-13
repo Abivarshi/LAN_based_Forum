@@ -1209,7 +1209,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ChatService = /** @class */ (function () {
     function ChatService() {
         var _this = this;
-        this.url = '/';
+        this.url = 'https://chat-on-lan.herokuapp.com';
         this.getMessages = function () {
             return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].create(function (observer) {
                 _this.socket.on('new-message', function (data) {
