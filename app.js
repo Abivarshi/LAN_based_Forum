@@ -30,7 +30,7 @@ mongoose.connection.on('error', () => {
 })
 
 //port number
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 //adding middleware - cors
 app.use(cors());
@@ -60,9 +60,9 @@ app.listen(port, function () {
     console.log("Node Server is setup and it is listening on port:" + port);
 });
 
-server.listen(port, function () {
-    console.log("Node Server is setup and it is listening on port" + ip.address());
-});
+//server.listen(port, function () {
+//    console.log("Node Server is setup and it is listening on port" + ip.address());
+//});
 
 //emit messages
 io.on('connection', (socket) => {
