@@ -57,6 +57,17 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/register']);
       }
     });
+
+    //send notification to the Head
+    const newNotification = {
+      userID: "5aeec8a7ec9c300014700f29",
+      type: "user",
+      data: this.first_name + " " + this.last_name
+    }
+    this.authService.addNotification(newNotification)
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 
   ngOnInit() {

@@ -74,7 +74,8 @@ export class DashboardComponent implements OnInit {
     for (let nClient of this.client) {
       const newNotification = {
         userID: nClient._id,
-        data: "You are invited to new Discussion '" + this.group_name + "' created by " + this.user.first_name
+        type: "group",
+        data: { grpName: this.group_name, grpAdmin: this.user.first_name }
       }
       this.authService.addNotification(newNotification)
         .subscribe(data => {

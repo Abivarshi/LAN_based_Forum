@@ -6,8 +6,12 @@ var NotificationSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         required: true
     },
-    data: {
+    type: {
         type: String,
+        required: true
+    },
+    data: {
+        type: Schema.Types.Mixed,
         required: false
     }
 });

@@ -82,6 +82,7 @@ router.post('/addUser', (req, res, next) => {
 router.post('/addNotification', (req, res, next) => {
     let newNotification = new Notification({
         userID: req.body.userID,
+        type: req.body.type,
         data: req.body.data
     });
     newNotification.save((err, notify) => {

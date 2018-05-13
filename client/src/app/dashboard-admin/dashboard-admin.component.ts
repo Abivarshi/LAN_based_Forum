@@ -62,7 +62,7 @@ export class DashboardAdminComponent implements OnInit {
         this.flashMessage.show('Something went wrong..', { cssClass: 'alert-danger', timeout: 1000 });
       }
     });
-    //this.rejectUser(request._id);
+    this.rejectUser(request._id);
   }
 
   deleteUser(id: any) {
