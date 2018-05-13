@@ -8,9 +8,9 @@ const path = require('path');
 const config = require('./config/database');
 var ip = require('ip');
 var app = express();
-var server = require('http').createServer(app);
+//var server = require('http').createServer(app);
 //var io = require('socket.io')(server);
-var io = require('socket.io').listen(app);
+var ioA = require('socket.io');
 var ss = require('socket.io-stream');
 var fs = require('fs');
 
@@ -66,6 +66,7 @@ app.listen(port, function () {
 //});
 
 //emit messages
+var io = ioA.connect('https://chat-on-lan.herokuapp.com');
 io.on('connection', (socket) => {
     console.log('user connected');
     socket.on('disconnect', function () {
