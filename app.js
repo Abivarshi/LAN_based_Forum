@@ -66,7 +66,8 @@ app.listen(port, function () {
 //});
 
 //emit messages
-io.connect('https://chat-on-lan.herokuapp.com');
+//io.connect('https://chat-on-lan.herokuapp.com');
+
 io.on('connection', (socket) => {
     console.log('user connected');
     socket.on('disconnect', function () {
