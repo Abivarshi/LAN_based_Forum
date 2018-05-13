@@ -9,7 +9,8 @@ const config = require('./config/database');
 var ip = require('ip');
 var app = express();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+//var io = require('socket.io')(server);
+var io = require('socket.io').listen(app);
 var ss = require('socket.io-stream');
 var fs = require('fs');
 
@@ -60,9 +61,9 @@ app.listen(port, function () {
     console.log("Node Server is setup and it is listening on port:" + port);
 });
 
-//server.listen(port, function () {
-//    console.log("Node Server is setup and it is listening on port" + ip.address());
-//});
+server.listen(port, function () {
+    console.log("Node Server is setup and it is listening on port" + ip.address());
+});
 
 //emit messages
 io.on('connection', (socket) => {
