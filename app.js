@@ -9,9 +9,6 @@ const config = require('./config/database');
 var ip = require('ip');
 var app = express();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-var ss = require('socket.io-stream');
-var fs = require('fs');
 
 const route = require('./routes/route');
 
@@ -30,7 +27,7 @@ mongoose.connection.on('error', () => {
 })
 
 //port number
-const port = 3000;
+const port = process.env.PORT || 4000;
 
 //adding middleware - cors
 app.use(cors());
@@ -57,41 +54,6 @@ app.get('/', (req, res) => {
 });
 
 //listen to server
-server.listen(port, function () {
+app.listen(port, function () {
     console.log("Node Server is setup and it is listening on port" + ip.address());
 });
-
-//emit messages
-io.on('connection', (socket) => {
-    console.log('user connected');
-    socket.on('disconnect', function () {
-        console.log('User disconnected');
-    });
-    socket.on('new-message', (data) => {
-        io.emit('new-message', data);
-    });
-});
-
-//emit images
-io.on('connection', function (socket) {
-    socket.on('img-send', (data) => {
-        var readStream = fs.createReadStream(data, {
-            encoding: 'binary'
-        }), chunks = [];
-
-        readStream.on('readable', function () {
-            console.log('Image loading');
-        });
-
-        readStream.on('data', function (chunk) {
-            chunks.push(chunk);
-            io.emit('img-chunk', chunk);
-            io.emit('img-send', chunk)
-        });
-
-        readStream.on('end', function () {
-            console.log('Image loaded');
-        });
-    });
-});
-
