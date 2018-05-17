@@ -22,6 +22,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './services/user.service';
 import { ChatService } from './services/chat.service';
+import { SendImageService } from './services/send-image.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -53,7 +54,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule.forRoot()
   ],
-  providers: [HttpClientModule, ValidateService, AuthService, UserService, ChatService],
+  providers: [HttpClientModule, ValidateService, AuthService, UserService, ChatService, SendImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

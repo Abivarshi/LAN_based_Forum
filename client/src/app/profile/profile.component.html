@@ -1,92 +1,96 @@
-<div *ngIf="user">
-  <h2><b>{{user.first_name}} {{user.last_name}}</b></h2><br />
-  <div class="jumbotron" style="min-height:400px;">
-    <table class="table table-hover" style="width:50%">
-      <tr>
-        <th scope="row">First name :</th>
-        <td>{{user.first_name}}</td>
-      </tr>
-      <tr>
-        <th scope="row">Last name :</th>
-        <td>{{user.last_name}}</td>
-      </tr>
-      <tr>
-        <th scope="row">Occupation :</th>
-        <td>{{user.occupation}}</td>
-      </tr>
-      <tr>
-        <th scope="row">Phone :</th>
-        <td>{{user.phone}}</td>
-      </tr>
-      <tr>
-        <th scope="row">Email :</th>
-        <td>{{user.email}}</td>
-      </tr>
-    </table>
-    <br />
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDetailModal">Edit Detail</button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePwdModal" style="margin-left:130px">Change Password</button>
-  </div>
-
-  <div class="modal" id="editDetailModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit detail</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<div *ngIf="authService.loggedIn()">
+  <div *ngIf="user">
+    <h2><b>{{user.first_name}} {{user.last_name}}</b></h2><br />
+    <div class="jumbotron" style="min-height:400px;">
+      <table class="table table-hover" style="width:50%">
+        <tr>
+          <th scope="row">First name :</th>
+          <td>{{user.first_name}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Last name :</th>
+          <td>{{user.last_name}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Occupation :</th>
+          <td>{{user.occupation}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Phone :</th>
+          <td>{{user.phone}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Email :</th>
+          <td>{{user.email}}</td>
+        </tr>
+      </table>
+      <br />
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editDetailModal">Edit Detail</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePwdModal" style="margin-left:130px">Change Password</button>
+    </div>
+    <div class="modal" id="editDetailModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit detail</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (submit)="editProfile()" id="editProfile">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" [(ngModel)]="first_name" name="first_name" class="form-control" required />
+                <label>Last Name</label>
+                <input type="text" [(ngModel)]="last_name" name="last_name" class="form-control" required />
+                <label>Occupation Name</label>
+                <input type="text" [(ngModel)]="occupation" name="occupation" class="form-control" required />
+                <label>Phone</label>
+                <input type="text" [(ngModel)]="phone" name="phone" class="form-control" required />
+                <label>Email</label>
+                <input type="text" [(ngModel)]="email" name="email" class="form-control" required />
+              </div>
+              <div class="modal-footer">
+                <input type="reset" class="btn btn-danger" value="Reset" />
+                <input type="submit" class="btn btn-primary" value="Change" />
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="modal-body">
-          <form (submit)="editProfile()" id="editProfile">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" [(ngModel)]="first_name" name="first_name" class="form-control" required />
-              <label>Last Name</label>
-              <input type="text" [(ngModel)]="last_name" name="last_name" class="form-control" required />
-              <label>Occupation Name</label>
-              <input type="text" [(ngModel)]="occupation" name="occupation" class="form-control" required />
-              <label>Phone</label>
-              <input type="text" [(ngModel)]="phone" name="phone" class="form-control" required />
-              <label>Email</label>
-              <input type="text" [(ngModel)]="email" name="email" class="form-control" required />
-            </div>
-            <div class="modal-footer">
-              <input type="reset" class="btn btn-danger" value="Reset" />
-              <input type="submit" class="btn btn-primary" value="Change" />
-            </div>
-          </form>
+      </div>
+    </div>
+    <div class="modal" id="changePwdModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Change Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (submit)="changePwd()">
+              <div class="form-group">
+                <label for="password">Your Password</label>
+                <input type="password" [(ngModel)]="password" name="old_password" class="form-control" required />
+                <label for="password">New Password</label>
+                <input type="password" [(ngModel)]="new_password" name="new_password" class="form-control" required />
+                <label for="password">Conform New Password</label>
+                <input type="password" [(ngModel)]="conform_password" name="conform_password" class="form-control" required />
+              </div>
+              <div class="modal-footer">
+                <input type="reset" class="btn btn-danger" value="Reset" />
+                <input type="submit" class="btn btn-primary" value="Change" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="modal" id="changePwdModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Change Password</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form (submit)="changePwd()">
-            <div class="form-group">
-              <label for="password">Your Password</label>
-              <input type="password" [(ngModel)]="password" name="old_password" class="form-control" required />
-              <label for="password">New Password</label>
-              <input type="password" [(ngModel)]="new_password" name="new_password" class="form-control" required />
-              <label for="password">Conform New Password</label>
-              <input type="password" [(ngModel)]="conform_password" name="conform_password" class="form-control" required />
-            </div>
-            <div class="modal-footer">
-              <input type="reset" class="btn btn-danger" value="Reset" />
-              <input type="submit" class="btn btn-primary" value="Change" />
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+<div *ngIf="!authService.loggedIn()">
+  <h1 style="margin:230px 0 0 290px"><b>Please Log In to continue...</b></h1>
+  <button type="button" class="btn btn-primary" [routerLink]="['/login']" style="margin:60px 0 0 440px;  width: 100px; height:50px">Log In</button>
 </div>

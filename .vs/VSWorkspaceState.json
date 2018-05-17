@@ -4,13 +4,13 @@
     "\\client",
     "\\client\\src",
     "\\client\\src\\app",
-    "\\client\\src\\app\\dashboard",
-    "\\client\\src\\app\\dashboard-admin",
-    "\\client\\src\\app\\navbar",
+    "\\client\\src\\app\\chat",
+    "\\client\\src\\app\\profile",
     "\\client\\src\\app\\services",
-    "\\client\\src\\images",
-    "\\routes"
+    "\\client\\src\\assets",
+    "\\client\\src\\assets\\images",
+    "\\models"
   ],
-  "SelectedNode": "\\routes\\route.js",
+  "SelectedNode": "\\app.js",
   "PreviewInSolutionExplorer": false
 }

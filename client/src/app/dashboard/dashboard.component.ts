@@ -13,10 +13,9 @@ import { group } from '../group';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  user: user;
-  users: user[];
+  currentUser: user;
+  users: user[] =[];
   groups: group[];
-  group: group;
   group_name: string;
   admin: user;
   client: user[] = [];
@@ -31,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getProfile().subscribe(user => {
-      this.user = user;
+      this.currentUser = user;
     },
       err => {
         console.log(err);
@@ -56,15 +55,15 @@ export class DashboardComponent implements OnInit {
   joinChat(group) {
     var oldClient = false;
     for (let nClient of group.client) {
-      if (this.user._id === nClient._id) {
+      if (this.currentUser._id === nClient._id) {
         oldClient = true;
       }
     }
-    if (this.user._id === group.admin._id) {
+    if (this.currentUser._id === group.admin._id) {
       oldClient = true;
     }
     if (oldClient === false) {
-      this.authService.addClient(this.user, group._id)
+      this.authService.addClient(this.currentUser, group._id)
         .subscribe(data => {
           console.log(data.msg);
         });
@@ -80,20 +79,19 @@ export class DashboardComponent implements OnInit {
     this.authService.addGroup(newGroup)
       .subscribe(group => {
         this.groups.push(group);
-      });
 
-    for (let nClient of this.client) {
-      const newNotification = {
-        userID: nClient._id,
-        type: "group",
-        data: { grpName: this.group_name, grpAdmin: this.user.first_name }
-      }
-      this.authService.addNotification(newNotification)
-        .subscribe(data => {
-          //console.log(data);
-        });
-    }
-    
+        for (let nClient of this.client) {
+          const newNotification = {
+            userID: nClient._id,
+            type: "group",
+            data: { grpName: group.group_name, grpAdmin: group.admin.first_name, grpID: group._id }
+          }
+          this.authService.addNotification(newNotification)
+            .subscribe(data => {
+              //console.log(data);
+            });
+        }
+      });    
   }
 
   getGroups() {
@@ -113,6 +111,28 @@ export class DashboardComponent implements OnInit {
   }
 
   removeNotification(id) {
+    this.authService.removeNotification(id).subscribe(result => {
+      console.log(result);
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
+  }
+
+  acceptJoinGrp(groupID) {
+    this.router.navigate(['chat/' + groupID]);
+  }
+
+  rejectJoinGrp(groupID, id) {
+    this.authService.removeClient(this.currentUser, groupID).subscribe(result => {
+      this.flashMessage.show("Request is rejected", { cssClass: 'alert-success', timeout: 5000 });
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
+
     this.authService.removeNotification(id).subscribe(result => {
       console.log(result);
     },

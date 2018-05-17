@@ -9,29 +9,29 @@ export class UserService {
   constructor(private http: Http) { }
 
   getUser() {
-    return this.http.get('/api/users')
+    return this.http.get('http://192.168.0.1:3000/api/users')
       .map(res => res.json());
   }
 
   getUserRequest() {
-    return this.http.get('/api/requests')
+    return this.http.get('http://192.168.0.1:3000/api/requests')
       .map(res => res.json());
   }
 
   addUser(newUser) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('/api/adduser', newUser, { headers: headers })
+    return this.http.post('http://192.168.0.1:3000/api/adduser', newUser, { headers: headers })
       .map(res => res.json());
   }
 
   deleteUser(id) {
-    return this.http.delete('/api/user/' + id)
+    return this.http.delete('http://192.168.0.1:3000/api/user/' + id)
       .map(res => res.json());
   }
 
   deleteUserRequest(id) {
-    return this.http.delete('/api/deleterequest/' + id)
+    return this.http.delete('http://192.168.0.1:3000/api/deleterequest/' + id)
       .map(res => res.json());
   }
 

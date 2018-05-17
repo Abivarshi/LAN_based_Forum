@@ -10,7 +10,6 @@ var ip = require('ip');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-//var io = require('socket.io');
 var ss = require('socket.io-stream');
 var fs = require('fs');
 
@@ -31,7 +30,7 @@ mongoose.connection.on('error', () => {
 })
 
 //port number
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 //adding middleware - cors
 app.use(cors());
@@ -57,17 +56,12 @@ app.get('/', (req, res) => {
     res.send('foobar');
 });
 
-app.listen(port, function () {
-    console.log("Node Server is setup and it is listening on port:" + port);
+//listen to server
+server.listen(port, function () {
+    console.log("Node Server is setup and it is listening on port" + ip.address());
 });
 
-//server.listen(port, function () {
- //   console.log("Node Server is setup and it is listening on port" + ip.address());
-//});
-
 //emit messages
-//io.connect('https://chat-on-lan.herokuapp.com');
-
 io.on('connection', (socket) => {
     console.log('user connected');
     socket.on('disconnect', function () {
@@ -78,32 +72,26 @@ io.on('connection', (socket) => {
     });
 });
 
-/*
+//emit images
 io.on('connection', function (socket) {
-    fs.readFile('../../ LDF_Photo / 3.png', function (err, buf) {
-        // it's possible to embed binary data
-        // within arbitrarily-complex objects
-        socket.emit('image', { image: true, buffer: buf });
-        console.log('image file is initialized');
-    });
-});*/
+    socket.on('img-send', (data) => {
+        var readStream = fs.createReadStream(data, {
+            encoding: 'binary'
+        }), chunks = [];
 
-io.on('connection', function (socket) {
-    var readStream = fs.createReadStream('../../LDF_Photo/1.jpg', {
-        encoding:'binary'
-    }), chunks = [];
+        readStream.on('readable', function () {
+            console.log('Image loading');
+        });
 
-    readStream.on('readable', function () {
-        console.log('Image loading');
-    });
+        readStream.on('data', function (chunk) {
+            chunks.push(chunk);
+            io.emit('img-chunk', chunk);
+            io.emit('img-send', chunk)
+        });
 
-    readStream.on('data', function (chunk) {
-        chunks.push(chunk);
-        socket.emit('img-chunk', chunk);
-    });
-
-    readStream.on('end', function () {
-        console.log('Image loaded');
+        readStream.on('end', function () {
+            console.log('Image loaded');
+        });
     });
 });
 

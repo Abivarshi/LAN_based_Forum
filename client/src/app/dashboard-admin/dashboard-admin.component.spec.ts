@@ -19,7 +19,4 @@ describe('DashboardAdminComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });

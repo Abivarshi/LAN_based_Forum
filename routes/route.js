@@ -34,7 +34,6 @@ router.get('/profile/:userId/picture', function (req, res, next) {
 });
 
 router.post('/register', (req, res, next) => {
-    var imgPath = '../../LDF_Photo/3.png';
     let newUser = new UserRequest({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -43,8 +42,6 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username
     });
-    newUser.img.data = fs.readFileSync(imgPath);
-    newUser.img.contentType = 'image/png';
     newUser.save(err => {
         if (err) {
             res.json(err);
@@ -57,7 +54,6 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/addUser', (req, res, next) => {
-    var imgSrc = "http://192.168.0.1:3000/api/profile/request.body._id/picture";
     let newUser = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -205,6 +201,25 @@ router.post('/addClient/:id', (req, res, next) => {
                 function (err, raw) {
                     if (err) return handleError(err);
                     res.json({ msg: 'New Client added successfully' });
+                }
+            );
+        }
+    });
+});
+
+router.post('/removeClient/:id', (req, res, next) => {
+    Group.findOne({ '_id': req.params.id }, function (err, findGroup) {
+        if (err) {
+            res.json({ msg: 'Failed to find the group' });
+            return next(err);
+        }
+        else {
+            Group.update(
+                { "_id": req.params.id },
+                { "$pull": { "client": req.body } },
+                function (err, raw) {
+                    if (err) return handleError(err);
+                    res.json({ msg: 'Client removed successfully' });
                 }
             );
         }

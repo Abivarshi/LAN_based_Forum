@@ -20,14 +20,14 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /***/ "./src/app/app.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n"
+module.exports = "\n"
 
 /***/ }),
 
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar></app-navbar>\r\n<br />\r\n<div class=\"container\">\r\n  <flash-messages></flash-messages>\r\n  <router-outlet></router-outlet>\r\n</div>\r\n"
+module.exports = "<app-navbar></app-navbar>\n<br />\n<div class=\"container\">\n  <flash-messages></flash-messages>\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -46,7 +46,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.title = 'app';
+        this.title = 'ChatOn';
     }
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -88,12 +88,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_angular2_flash_messages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__services_user_service__ = __webpack_require__("./src/app/services/user.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__services_chat_service__ = __webpack_require__("./src/app/services/chat.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__services_send_image_service__ = __webpack_require__("./src/app/services/send-image.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -147,7 +149,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* RouterModule */].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_17_angular2_flash_messages__["FlashMessagesModule"].forRoot()
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_3__angular_common_http__["a" /* HttpClientModule */], __WEBPACK_IMPORTED_MODULE_15__services_validate_service__["a" /* ValidateService */], __WEBPACK_IMPORTED_MODULE_16__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_18__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_19__services_chat_service__["a" /* ChatService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_3__angular_common_http__["a" /* HttpClientModule */], __WEBPACK_IMPORTED_MODULE_15__services_validate_service__["a" /* ValidateService */], __WEBPACK_IMPORTED_MODULE_16__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_18__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_19__services_chat_service__["a" /* ChatService */], __WEBPACK_IMPORTED_MODULE_20__services_send_image_service__["a" /* SendImageService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -168,7 +170,7 @@ module.exports = "span {\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n
 /***/ "./src/app/chat/chat.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron\" style=\"min-height:500px;\">\r\n  <div *ngFor=\"let message of messages\">\r\n    <div *ngIf=\"message.url === this.url\">\r\n      <div *ngIf=\"message.sender === first_name\">\r\n        <div class=\"row message-body\">\r\n          <div class=\"col-sm-12 message-main-sender\">\r\n            <div class=\"sender\">\r\n              <div class=\"message-text\">\r\n                {{message.message}}{{message.groupID}}\r\n              </div>\r\n              <span class=\"message-time pull-right\">{{message.sender}}</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"message.sender !== first_name\">\r\n        <div class=\"row message-body\">\r\n          <div class=\"col-sm-12 message-main-receiver\">\r\n            <div class=\"receiver\">\r\n              <div class=\"message-text\">\r\n                {{message.message}}\r\n              </div>\r\n              <span class=\"message-time pull-right\">{{message.sender}}</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <img id=\"img-stream2\" src=\"\" />\r\n</div>\r\n<div class=\"row reply\">\r\n  <div class=\"col-sm-10 col-xs-10 reply-main\">\r\n    <input [(ngModel)]=\"message\" (keyup)=\"$event.keyCode == 13 && sendMessage()\" class=\"form-control\" />\r\n  </div>\r\n  <div class=\"col-sm-2 col-xs-2 reply-send\">\r\n    <button (click)=\"sendMessage()\" class=\"btn btn-primary\">Send</button>\r\n  </div>\r\n</div>\r\n<div class=\"row reply\">\r\n  <div class=\"col-sm-10 col-xs-10 reply-main\">\r\n    <input type=\"file\" [(ngModel)]=\"image\" (keyup)=\"$event.keyCode == 13 && sendImage()\" />\r\n  </div>\r\n  <div class=\"col-sm-2 col-xs-2 reply-send\">\r\n    <button (click)=\"sendImage()\" class=\"btn btn-primary\">Send Image</button>\r\n  </div>\r\n</div>\r\n\r\n\r\n<div class=\"modal\" id=\"addClientModal\" role=\"dialog\">\r\n  <div class=\"modal-dialog\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\">Add new Client</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form (submit)=\"addClient()\">\r\n          <fieldset class=\"form-group\">\r\n            <legend>Invite Members</legend>\r\n            <div class=\"form-check\" *ngFor=\"let user of users\">\r\n              <label class=\"form-check-label\">\r\n                <input class=\"form-check-input\" type=\"checkbox\" name=\"client\" (change)=\"addClient(user, $event.target.checked)\">\r\n                {{user.first_name}} {{user.last_name}}\r\n              </label>\r\n            </div>\r\n          </fieldset>\r\n          <div class=\"modal-footer\">\r\n            <input type=\"submit\" class=\"btn btn-success\" value=\"Add\" />\r\n          </div>\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\" *ngIf=\"authService.loggedIn()\">\r\n  <div class=\"col-md-8\">\r\n    <div class=\"jumbotron\" style=\"min-height:500px;\">\r\n      <div *ngFor=\"let message of messages\">\r\n        <div *ngIf=\"message.url === this.url\">\r\n          <div *ngIf=\"message.sender === first_name\">\r\n            <div class=\"row message-body\">\r\n              <div class=\"col-sm-12 message-main-sender\">\r\n                <div class=\"sender\">\r\n                  <div class=\"message-text\">\r\n                    {{message.message}}{{message.groupID}}\r\n                  </div>\r\n                  <span class=\"message-time pull-right\">{{message.sender}}</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div *ngIf=\"message.sender !== first_name\">\r\n            <div class=\"row message-body\">\r\n              <div class=\"col-sm-12 message-main-receiver\">\r\n                <div class=\"receiver\">\r\n                  <div class=\"message-text\">\r\n                    {{message.message}}\r\n                  </div>\r\n                  <span class=\"message-time pull-right\">{{message.sender}}</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"row reply\">\r\n      <div class=\"col-sm-10 col-xs-10 reply-main\">\r\n        <input [(ngModel)]=\"message\" (keyup)=\"$event.keyCode == 13 && sendMessage()\" class=\"form-control\" />\r\n      </div>\r\n      <div class=\"col-sm-2 col-xs-2 reply-send\">\r\n        <button (click)=\"sendMessage()\" class=\"btn btn-primary\">Send</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div class=\"jumbotron\" style=\"min-height:500px;\">\r\n      <img id=\"img-stream\" src=\"\" style=\"width:250px; height:auto\" />\r\n    </div>\r\n    <div class=\"row reply\">\r\n      <div class=\"col-sm-6 col-xs-6 reply-main\">\r\n        <input type=\"file\" [(ngModel)]=\"path\"/>\r\n      </div>\r\n      <div class=\"col-sm-2 col-xs-2 reply-send\">\r\n        <button (click)=\"sendImage()\" class=\"btn btn-primary\">Send Image</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  </div>\r\n<div *ngIf=\"!authService.loggedIn()\">\r\n  <h1 style=\"margin:230px 0 0 290px\"><b>Please Log In to continue...</b></h1>\r\n  <button type=\"button\" class=\"btn btn-primary\" [routerLink]=\"['/login']\" style=\"margin:60px 0 0 440px;  width: 100px; height:50px\">Log In</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -179,11 +181,12 @@ module.exports = "<div class=\"jumbotron\" style=\"min-height:500px;\">\r\n  <di
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_chat_service__ = __webpack_require__("./src/app/services/chat.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__("./src/app/services/user.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_flash_messages__ = __webpack_require__("./node_modules/angular2-flash-messages/module/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_send_image_service__ = __webpack_require__("./src/app/services/send-image.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__("./src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_flash_messages__ = __webpack_require__("./node_modules/angular2-flash-messages/module/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular2_flash_messages__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -199,9 +202,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ChatComponent = /** @class */ (function () {
-    function ChatComponent(chatService, authService, userService, router, flashMessage) {
+    function ChatComponent(chatService, sendImageService, authService, userService, router, flashMessage) {
         this.chatService = chatService;
+        this.sendImageService = sendImageService;
         this.authService = authService;
         this.userService = userService;
         this.router = router;
@@ -209,33 +214,28 @@ var ChatComponent = /** @class */ (function () {
         this.url = this.router.url;
         this.messages = [];
         this.imgChunks = [];
-        /*groups: group[];
-        group: group;
-        group_id: any;
-        group_name: string;
-        admin: user;*/
         this.client = [];
         this.newClient = [];
     }
     ChatComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //get all users
         this.userService.getUser()
             .subscribe(function (users) {
             return _this.users = users;
         });
+        //get message and image from another user
         this.chatService
             .getMessages()
             .subscribe(function (data) {
             _this.messages.push(data);
         });
-        /*this.chatService
-          .getImages()
-          .subsribe((chunk: string) => {
-            console.log(this.imgChunks);
-            var img = document.getElementById('img-stream2');
-            this.imgChunks.push(chunk);
+        this.chatService.getImages().subscribe(function (chunk) {
+            var img = document.getElementById('img-stream');
+            _this.imgChunks.push(chunk);
             img.setAttribute('src', 'data:image/jpeg;base64,' + window.btoa(chunk));
-          });*/
+        });
+        //get current user profile
         this.authService.getProfile().subscribe(function (user) {
             _this.id = user._id;
             _this.first_name = user.first_name;
@@ -244,26 +244,16 @@ var ChatComponent = /** @class */ (function () {
             console.log(err);
             return false;
         });
-        /*this.authService.getCurrentGroup(this.chatService.currentGroup).subscribe(group => {
-          this.group = group;
-          this.group_id = group._id;
-          this.group_name = group.group_name;
-          this.admin = group.admin;
-          this.client = group.client;
-        },
-          err => {
-            console.log(err);
-            return false;
-          });*/
     };
+    // send message and image from one user
     ChatComponent.prototype.sendMessage = function () {
         this.chatService.sendMessage(this.url, this.message, this.sender);
         this.message = '';
     };
     ChatComponent.prototype.sendImage = function () {
-        this.chatService.sendImage(this.image);
-        this.image = '';
+        this.chatService.sendImage('../../LDF_Photo/1.jpg');
     };
+    //add new client to added new group
     ChatComponent.prototype.addClient = function (user, isChecked) {
         console.log(this.newClient);
         if (isChecked) {
@@ -288,10 +278,11 @@ var ChatComponent = /** @class */ (function () {
             providers: [__WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */],
-            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */],
-            __WEBPACK_IMPORTED_MODULE_5_angular2_flash_messages__["FlashMessagesService"]])
+            __WEBPACK_IMPORTED_MODULE_2__services_send_image_service__["a" /* SendImageService */],
+            __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */],
+            __WEBPACK_IMPORTED_MODULE_5__angular_router__["a" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_6_angular2_flash_messages__["FlashMessagesService"]])
     ], ChatComponent);
     return ChatComponent;
 }());
@@ -310,7 +301,7 @@ module.exports = ""
 /***/ "./src/app/dashboard-admin/dashboard-admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2><b>User Request</b></h2>\r\n<div class=\"jumbotron\">\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th scope=\"col\"></th>\r\n        <th scope=\"col\">Name</th>\r\n        <th scope=\"col\">Occupation</th>\r\n        <th scope=\"col\">Phone</th>\r\n        <th scope=\"col\">Email</th>\r\n        <th scope=\"col\"></th>\r\n        <th scope=\"col\"></th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let request of requests\">\r\n        <th><img src=\"https://chat-on-lan.herokuapp.com/api/profile/{{request._id}}/picture\" width=\"42\" height=\"42\" style=\"border-radius: 50%;\" /></th>\r\n        <th scope=\"row\">{{request.first_name}} {{request.last_name}}</th>\r\n        <td>{{request.occupation}}</td>\r\n        <td>{{request.phone}}</td>\r\n        <td>{{request.email}}</td>\r\n        <td><input type=\"button\" (click)=\"acceptUser(request)\" value=\"Accept\" class=\"btn btn-primary\" /></td>\r\n        <td><input type=\"button\" (click)=\"rejectUser(request._id)\" value=\"Reject\" class=\"btn btn-danger\" /></td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n\r\n<hr />\r\n<h2><b>Workers Detail</b></h2>\r\n<div class=\"jumbotron\">\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th scope=\"col\">Name</th>\r\n        <th scope=\"col\">Occupation</th>\r\n        <th scope=\"col\">Phone</th>\r\n        <th scope=\"col\">Email</th>\r\n        <th scope=\"col\"></th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let user of users\">\r\n        <th *ngIf=\"user.img\"><img src=\"http://192.168.0.1:3000/api/profile/{{request._id}}/picture\" width=\"42\" height=\"42\" style=\"border-radius: 50%;\" /></th>\r\n        <th scope=\"row\">{{user.first_name}} {{user.last_name}}</th>\r\n        <td>{{user.occupation}}</td>\r\n        <td>{{user.phone}}</td>\r\n        <td>{{user.email}}</td>\r\n        <td><input type=\"button\" (click)=\"deleteUser(user._id)\" value=\"Delete\" class=\"btn btn-danger\" /></td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<div *ngIf=\"authService.loggedIn()\">\r\n  <h2><b>User Request</b></h2>\r\n  <div class=\"jumbotron\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\">Name</th>\r\n          <th scope=\"col\">Occupation</th>\r\n          <th scope=\"col\">Phone</th>\r\n          <th scope=\"col\">Email</th>\r\n          <th scope=\"col\"></th>\r\n          <th scope=\"col\"></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let request of requests\">\r\n          <th scope=\"row\">{{request.first_name}} {{request.last_name}}</th>\r\n          <td>{{request.occupation}}</td>\r\n          <td>{{request.phone}}</td>\r\n          <td>{{request.email}}</td>\r\n          <td><input type=\"button\" (click)=\"acceptUser(request)\" value=\"Accept\" class=\"btn btn-primary\" /></td>\r\n          <td><input type=\"button\" (click)=\"rejectUser(request._id)\" value=\"Reject\" class=\"btn btn-danger\" /></td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n  <hr />\r\n  <h2><b>Workers Detail</b></h2>\r\n  <div class=\"jumbotron\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th scope=\"col\">Name</th>\r\n          <th scope=\"col\">Occupation</th>\r\n          <th scope=\"col\">Phone</th>\r\n          <th scope=\"col\">Email</th>\r\n          <th scope=\"col\"></th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let user of users\">\r\n          <th scope=\"row\">{{user.first_name}} {{user.last_name}}</th>\r\n          <td>{{user.occupation}}</td>\r\n          <td>{{user.phone}}</td>\r\n          <td>{{user.email}}</td>\r\n          <td><input type=\"button\" (click)=\"deleteUser(user._id)\" value=\"Delete\" class=\"btn btn-danger\" /></td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n</div>\r\n<div *ngIf=\"!authService.loggedIn()\">\r\n  <h1 style=\"margin:230px 0 0 290px\"><b>Please Log In to continue...</b></h1>\r\n  <button type=\"button\" class=\"btn btn-primary\" [routerLink]=\"['/login']\" style=\"margin:60px 0 0 440px;  width: 100px; height:50px\">Log In</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -365,11 +356,7 @@ var DashboardAdminComponent = /** @class */ (function () {
             phone: request.phone,
             occupation: request.occupation,
             email: request.email,
-            username: request.username,
-            img: {
-                data: request.img.data,
-                contentType: request.img.contentType
-            }
+            username: request.username
         };
         this.authService.addUser(user).subscribe(function (data) {
             if (data.success) {
@@ -430,14 +417,14 @@ var DashboardAdminComponent = /** @class */ (function () {
 /***/ "./src/app/dashboard/dashboard.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".container {\r\n  width: 100%;\r\n  margin-left: 0px;\r\n}\r\n"
+module.exports = ".container {\n  width: 100%;\n  margin-left: 0px;\n}\n"
 
 /***/ }),
 
 /***/ "./src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div class=\"row\">\r\n      <div class=\"card text-white border-secondary mb-3\" style=\"width: 20rem;\">\r\n        <h3 class=\"card-header bg-primary text-white\"><i class=\"fa fa-bell-o\" style=\"font-size:24px\"></i> Notifications</h3>\r\n        <div class=\"card-body\">\r\n          <div *ngFor=\"let notification of notifications\">\r\n            <div *ngIf=\"notification.type === 'group'\">\r\n              <div class=\"alert alert-dismissible alert-light\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" (click)=\"removeNotification(notification._id)\">&times;</button>\r\n                <strong>New Group!</strong> <br />You have an invitation to join\r\n                <a class=\"alert-link\">{{notification.data.grpName}}</a>, created by {{notification.data.grpAdmin}}.\r\n              </div>\r\n            </div>\r\n            <div *ngIf=\"notification.type === 'user'\">\r\n              <div class=\"alert alert-dismissible alert-light\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" (click)=\"removeNotification(notification._id)\">&times;</button>\r\n                <strong>New User Request!</strong><br />\r\n                <a class=\"alert-link\" [routerLink]=\"['/user-manage']\">{{notification.data}}</a>, request to join the system.\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div>\r\n        <div class=\"card text-white bg-primary mb-3\" style=\"width: 20rem; max-height:30rem\">\r\n          <h3 class=\"card-header\">Create Group</h3>\r\n          <div class=\"card-body\">\r\n            <form (submit)=\"addGroup()\">\r\n              <div class=\"form-group\">\r\n                <label>Group Name</label>\r\n                <input type=\"text\" [(ngModel)]=\"group_name\" name=\"group_name\" class=\"form-control\" required />\r\n              </div>\r\n              <fieldset class=\"form-group\">\r\n                <legend>Invite Members</legend>\r\n                <div class=\"form-check\" *ngFor=\"let client of users\">\r\n                  <div *ngIf=\"user._id !== client._id\">\r\n                    <label class=\"form-check-label\">\r\n                      <input class=\"form-check-input\" type=\"checkbox\" name=\"client\" (change)=\"addClient(client, $event.target.checked)\">\r\n                      {{client.first_name}} {{client.last_name}}\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n              </fieldset>\r\n              <div class=\"card-footer text-muted\">\r\n                <input type=\"submit\" class=\"btn btn-secondary btn-lg btn-block\" value=\"Add Group\" />\r\n              </div>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <h1>Current Discussions</h1><br />\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4 col-sm-4\" *ngFor=\"let group of groups\">\r\n        <div class=\"card border-light mb-3\" style=\"width: 15rem;\">\r\n          <h3 class=\"card-header\">{{group.group_name}}</h3>\r\n          <div class=\"card-body\">\r\n            <h5 class=\"card-title\">Admin :</h5>\r\n            <h6 class=\"card-subtitle text-muted\">{{group.admin.first_name}}</h6><br />\r\n            <h5 class=\"card-title\">Clients :</h5>\r\n            <div *ngFor=\"let client of group.client\">\r\n              <h6 class=\"card-subtitle text-muted\">{{client.first_name}}</h6><br />\r\n            </div>\r\n          </div>\r\n          <div class=\"card-footer text-muted\">\r\n            <button type=\"button\" class=\"btn btn-primary btn-lg btn-block\" (click)=\"joinChat(group)\" style=\"max-width: 25rem;\">Join Discussion</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>  \r\n</div>\r\n\r\n"
+module.exports = "<div *ngIf=\"authService.loggedIn()\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-4\">\r\n      <div class=\"row\">\r\n        <div class=\"card text-white border-secondary mb-3\" style=\"width: 20rem;\">\r\n          <h3 class=\"card-header bg-primary text-white\"><i class=\"fa fa-bell-o\" style=\"font-size:24px\"></i> Notifications</h3>\r\n          <div class=\"card-body\">\r\n            <div *ngFor=\"let notification of notifications\">\r\n              <div *ngIf=\"notification.type === 'group'\">\r\n                <div class=\"alert alert-dismissible alert-light\">\r\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" (click)=\"removeNotification(notification._id)\">&times;</button>\r\n                  <strong>New Group!</strong> <br />You have an invitation to join{{notification.data.grpName}}, created by\r\n                  <strong>{{notification.data.grpAdmin}}</strong>.\r\n                  <br /><button type=\"button\" class=\"btn btn-primary btn-sm\" (click)=\"acceptJoinGrp(notification.data.grpID)\">Accept</button>\r\n                  <button type=\"button\" class=\"btn btn-danger btn-sm\" (click)=\"rejectJoinGrp(notification.data.grpID, notification._id)\">Reject</button>\r\n                </div>\r\n              </div>\r\n              <div *ngIf=\"notification.type === 'user'\">\r\n                <div class=\"alert alert-dismissible alert-light\">\r\n                  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" (click)=\"removeNotification(notification._id)\">&times;</button>\r\n                  <strong>New User Request!</strong><br />\r\n                  <a class=\"alert-link\" [routerLink]=\"['/user-manage']\">{{notification.data}}</a>, request to join the system.\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"card text-white bg-primary mb-3\" style=\"width: 20rem; max-height:30rem\">\r\n          <h3 class=\"card-header\">Create Group</h3>\r\n          <div class=\"card-body\">\r\n            <form (submit)=\"addGroup()\">\r\n              <div class=\"form-group\">\r\n                <label>Group Name</label>\r\n                <input type=\"text\" [(ngModel)]=\"group_name\" name=\"group_name\" class=\"form-control\" required />\r\n              </div>\r\n              <fieldset class=\"form-group\">\r\n                <legend>Invite Members</legend>\r\n                <div class=\"form-check\" *ngFor=\"let client of users\">\r\n                  <div *ngIf=\"currentUser._id !== client._id\">\r\n                    <label class=\"form-check-label\">\r\n                      <input class=\"form-check-input\" type=\"checkbox\" name=\"client\" (change)=\"addClient(client, $event.target.checked)\">\r\n                      {{client.first_name}} {{client.last_name}}\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n              </fieldset>\r\n              <div class=\"card-footer text-muted\">\r\n                <input type=\"submit\" class=\"btn btn-secondary btn-lg btn-block\" value=\"Add Group\" />\r\n              </div>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-md-8\">\r\n      <h1>Current Discussions</h1><br />\r\n      <div class=\"row\">\r\n        <div class=\"col-md-4 col-sm-4\" *ngFor=\"let group of groups\">\r\n          <div class=\"card border-light mb-3\" style=\"width: 15rem;\">\r\n            <h3 class=\"card-header\">{{group.group_name}}</h3>\r\n            <div class=\"card-body\">\r\n              <h5 class=\"card-title\">Admin :</h5>\r\n              <h6 class=\"card-subtitle text-muted\">{{group.admin.first_name}}</h6><br />\r\n              <h5 class=\"card-title\">Clients :</h5>\r\n              <div *ngFor=\"let client of group.client\">\r\n                <h6 class=\"card-subtitle text-muted\">{{client.first_name}}</h6><br />\r\n              </div>\r\n            </div>\r\n            <div class=\"card-footer text-muted\">\r\n              <button type=\"button\" class=\"btn btn-primary btn-lg btn-block\" (click)=\"joinChat(group)\" style=\"max-width: 25rem;\">Join Discussion</button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div *ngIf=\"!authService.loggedIn()\">\r\n  <h1 style=\"margin:230px 0 0 290px\"><b>Please Log In to continue...</b></h1>\r\n  <button type=\"button\" class=\"btn btn-primary\" [routerLink]=\"['/login']\" style=\"margin:60px 0 0 440px;  width: 100px; height:50px\">Log In</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -475,12 +462,13 @@ var DashboardComponent = /** @class */ (function () {
         this.chatService = chatService;
         this.router = router;
         this.flashMessage = flashMessage;
+        this.users = [];
         this.client = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.authService.getProfile().subscribe(function (user) {
-            _this.user = user;
+            _this.currentUser = user;
         }, function (err) {
             console.log(err);
             return false;
@@ -501,15 +489,15 @@ var DashboardComponent = /** @class */ (function () {
         var oldClient = false;
         for (var _i = 0, _a = group.client; _i < _a.length; _i++) {
             var nClient = _a[_i];
-            if (this.user._id === nClient._id) {
+            if (this.currentUser._id === nClient._id) {
                 oldClient = true;
             }
         }
-        if (this.user._id === group.admin._id) {
+        if (this.currentUser._id === group.admin._id) {
             oldClient = true;
         }
         if (oldClient === false) {
-            this.authService.addClient(this.user, group._id)
+            this.authService.addClient(this.currentUser, group._id)
                 .subscribe(function (data) {
                 console.log(data.msg);
             });
@@ -525,19 +513,19 @@ var DashboardComponent = /** @class */ (function () {
         this.authService.addGroup(newGroup)
             .subscribe(function (group) {
             _this.groups.push(group);
+            for (var _i = 0, _a = _this.client; _i < _a.length; _i++) {
+                var nClient = _a[_i];
+                var newNotification = {
+                    userID: nClient._id,
+                    type: "group",
+                    data: { grpName: group.group_name, grpAdmin: group.admin.first_name, grpID: group._id }
+                };
+                _this.authService.addNotification(newNotification)
+                    .subscribe(function (data) {
+                    //console.log(data);
+                });
+            }
         });
-        for (var _i = 0, _a = this.client; _i < _a.length; _i++) {
-            var nClient = _a[_i];
-            var newNotification = {
-                userID: nClient._id,
-                type: "group",
-                data: { grpName: this.group_name, grpAdmin: this.user.first_name }
-            };
-            this.authService.addNotification(newNotification)
-                .subscribe(function (data) {
-                //console.log(data);
-            });
-        }
     };
     DashboardComponent.prototype.getGroups = function () {
         var _this = this;
@@ -554,6 +542,24 @@ var DashboardComponent = /** @class */ (function () {
         }
     };
     DashboardComponent.prototype.removeNotification = function (id) {
+        this.authService.removeNotification(id).subscribe(function (result) {
+            console.log(result);
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
+    };
+    DashboardComponent.prototype.acceptJoinGrp = function (groupID) {
+        this.router.navigate(['chat/' + groupID]);
+    };
+    DashboardComponent.prototype.rejectJoinGrp = function (groupID, id) {
+        var _this = this;
+        this.authService.removeClient(this.currentUser, groupID).subscribe(function (result) {
+            _this.flashMessage.show("Request is rejected", { cssClass: 'alert-success', timeout: 5000 });
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
         this.authService.removeNotification(id).subscribe(function (result) {
             console.log(result);
         }, function (err) {
@@ -583,14 +589,14 @@ var DashboardComponent = /** @class */ (function () {
 /***/ "./src/app/home/home.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\r\n"
 
 /***/ }),
 
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-6\">\r\n    <img src=\"assets/images/logo.png\" style=\"width:20rem; height:auto\" />\r\n    <br /><br />\r\n    <h1><b>A LAN based Discussion Forum</b></h1>\r\n    <button type=\"button\" class=\"btn btn-primary\" [routerLink]=\"['/login']\" style=\"margin:60px 0 0 200px;  width: 100px; height:50px\">Try it</button>\r\n  </div>\r\n  <div class=\"col-md-6\">\r\n    <img src=\"assets/images/bg.jpg\" style=\"width:40rem; height:auto; margin-top:100px\" />\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -640,7 +646,7 @@ module.exports = ""
 /***/ "./src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1 class=\"page-header text-center\"><b>Sign In</b></h1>\r\n<div class=\"jumbotron\" style=\"width:600px; margin-left:280px\">\r\n  <form class=\"form-signin\" (submit)=\"onLoginSubmit()\" style=\"width:200px; margin-left:170px\">\r\n    <fieldset class=\"col-md-12\">\r\n      <div class=\"form-group\">\r\n        <label for=\"Username\"><i class=\"fa fa-address-card\"></i> Username</label>\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Enter Username\" [(ngModel)]=\"username\" name=\"username\">\r\n      </div><br />\r\n      <div class=\"form-group\">\r\n        <label for=\"Password\"><i class=\"fa fa-lock\"></i> Password</label>\r\n        <input type=\"password\" class=\"form-control\" placeholder=\" Enter Password\" [(ngModel)]=\"password\" name=\"password\">\r\n      </div>\r\n      <div class=\"checkbox\">\r\n        <label>\r\n          <input type=\"checkbox\" value=\"remember-me\"> Remember me\r\n        </label>\r\n      </div><br />\r\n      <input class=\"btn btn-primary\" type=\"submit\" value=\"Login\" style=\"margin-left:50px\">\r\n    </fieldset>\r\n  </form>  \r\n  <div class=\"text-center\">\r\n    Don't have an account? <a class=\"alert-link\" [routerLink]=\"['/register']\">Sign Up</a>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<h1 class=\"page-header text-center\"><b>Sign In</b></h1>\n<div class=\"jumbotron\" style=\"width:600px; margin-left:280px\">\n  <form class=\"form-signin\" (submit)=\"onLoginSubmit()\" style=\"width:200px; margin-left:170px\">\n    <fieldset class=\"col-md-12\">\n      <div class=\"form-group\">\n        <label for=\"Username\"><i class=\"fa fa-address-card\"></i> Username</label>\n        <input type=\"text\" class=\"form-control\" placeholder=\"Enter Username\" [(ngModel)]=\"username\" name=\"username\">\n      </div><br />\n      <div class=\"form-group\">\n        <label for=\"Password\"><i class=\"fa fa-lock\"></i> Password</label>\n        <input type=\"password\" class=\"form-control\" placeholder=\" Enter Password\" [(ngModel)]=\"password\" name=\"password\">\n      </div>\n      <div class=\"checkbox\">\n        <label>\n          <input type=\"checkbox\" value=\"remember-me\"> Remember me\n        </label>\n      </div><br />\n      <input class=\"btn btn-primary\" type=\"submit\" value=\"Login\" style=\"margin-left:50px\">\n    </fieldset>\n  </form>  \n  <div class=\"text-center\">\n    Don't have an account? <a class=\"alert-link\" [routerLink]=\"['/register']\">Sign Up</a>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -718,14 +724,14 @@ var LoginComponent = /** @class */ (function () {
 /***/ "./src/app/navbar/navbar.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "/*Notification*/\r\n\r\n.notification-list {\r\n  margin-left: 0 !important;\r\n}\r\n\r\n.notification-list .noti-title {\r\n    border-radius: 0.25rem 0.25rem 0 0;\r\n    background-color: #64c5b1;\r\n    margin: -6px -1px 0px -1px;\r\n    width: auto;\r\n    padding: 12px 20px;\r\n  }\r\n\r\n.notification-list .noti-title h5 {\r\n      color: #ffffff;\r\n      margin: 0;\r\n    }\r\n\r\n.notification-list .noti-title .label {\r\n      float: right;\r\n    }\r\n\r\n.notification-list .noti-icon {\r\n    font-size: 22px;\r\n    padding: 0 12px;\r\n    vertical-align: middle;\r\n    color: rgba(49, 58, 70, 0.8);\r\n  }\r\n\r\n.notification-list .noti-icon-badge {\r\n    display: inline-block;\r\n    position: absolute;\r\n    top: 14px;\r\n    right: 8px;\r\n  }\r\n\r\n.notification-list .notify-item {\r\n    padding: 10px 20px;\r\n  }\r\n\r\n.notification-list .notify-item .notify-icon {\r\n      float: left;\r\n      height: 36px;\r\n      width: 36px;\r\n      line-height: 36px;\r\n      text-align: center;\r\n      margin-right: 10px;\r\n      border-radius: 50%;\r\n      color: #ffffff;\r\n    }\r\n\r\n.notification-list .notify-item .notify-icon img {\r\n        margin-top: 4px;\r\n      }\r\n\r\n.notification-list .notify-item .notify-details {\r\n      margin-bottom: 0;\r\n      overflow: hidden;\r\n      margin-left: 45px;\r\n      text-overflow: ellipsis;\r\n      white-space: nowrap;\r\n    }\r\n\r\n.notification-list .notify-item .notify-details b {\r\n        font-weight: 500;\r\n      }\r\n\r\n.notification-list .notify-item .notify-details small {\r\n        display: block;\r\n      }\r\n\r\n.notification-list .notify-item .notify-details span {\r\n        display: block;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        font-size: 13px;\r\n      }\r\n\r\n.notification-list .notify-all {\r\n    border-radius: 0 0 0.25rem 0.25rem;\r\n    margin: 0 0 -5px 0;\r\n    background-color: #e2e2e2;\r\n  }\r\n\r\n.notification-list .profile-dropdown .notify-item {\r\n    padding: 4px 20px;\r\n  }\r\n\r\n.profile-dropdown {\r\n  width: 170px;\r\n}\r\n\r\n.profile-dropdown i {\r\n    font-size: 17px;\r\n    vertical-align: middle;\r\n    margin-right: 5px;\r\n  }\r\n\r\n.profile-dropdown span {\r\n    vertical-align: middle;\r\n  }\r\n\r\n.nav-user {\r\n  padding: 0 12px !important;\r\n}\r\n\r\n.nav-user img {\r\n    height: 36px;\r\n    width: 36px;\r\n  }\r\n\r\n.header-title {\r\n  margin-bottom: 8px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.02em;\r\n  font-size: 14px;\r\n}\r\n"
+module.exports = "/*Notification*/\n\n.notification-list {\n  margin-left: 0 !important;\n}\n\n.notification-list .noti-title {\n    border-radius: 0.25rem 0.25rem 0 0;\n    background-color: #64c5b1;\n    margin: -6px -1px 0px -1px;\n    width: auto;\n    padding: 12px 20px;\n  }\n\n.notification-list .noti-title h5 {\n      color: #ffffff;\n      margin: 0;\n    }\n\n.notification-list .noti-title .label {\n      float: right;\n    }\n\n.notification-list .noti-icon {\n    font-size: 22px;\n    padding: 0 12px;\n    vertical-align: middle;\n    color: rgba(49, 58, 70, 0.8);\n  }\n\n.notification-list .noti-icon-badge {\n    display: inline-block;\n    position: absolute;\n    top: 14px;\n    right: 8px;\n  }\n\n.notification-list .notify-item {\n    padding: 10px 20px;\n  }\n\n.notification-list .notify-item .notify-icon {\n      float: left;\n      height: 36px;\n      width: 36px;\n      line-height: 36px;\n      text-align: center;\n      margin-right: 10px;\n      border-radius: 50%;\n      color: #ffffff;\n    }\n\n.notification-list .notify-item .notify-icon img {\n        margin-top: 4px;\n      }\n\n.notification-list .notify-item .notify-details {\n      margin-bottom: 0;\n      overflow: hidden;\n      margin-left: 45px;\n      text-overflow: ellipsis;\n      white-space: nowrap;\n    }\n\n.notification-list .notify-item .notify-details b {\n        font-weight: 500;\n      }\n\n.notification-list .notify-item .notify-details small {\n        display: block;\n      }\n\n.notification-list .notify-item .notify-details span {\n        display: block;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        white-space: nowrap;\n        font-size: 13px;\n      }\n\n.notification-list .notify-all {\n    border-radius: 0 0 0.25rem 0.25rem;\n    margin: 0 0 -5px 0;\n    background-color: #e2e2e2;\n  }\n\n.notification-list .profile-dropdown .notify-item {\n    padding: 4px 20px;\n  }\n\n.profile-dropdown {\n  width: 170px;\n}\n\n.profile-dropdown i {\n    font-size: 17px;\n    vertical-align: middle;\n    margin-right: 5px;\n  }\n\n.profile-dropdown span {\n    vertical-align: middle;\n  }\n\n.nav-user {\n  padding: 0 12px !important;\n}\n\n.nav-user img {\n    height: 36px;\n    width: 36px;\n  }\n\n.header-title {\n  margin-bottom: 8px;\n  text-transform: uppercase;\n  letter-spacing: 0.02em;\n  font-size: 14px;\n}\n"
 
 /***/ }),
 
 /***/ "./src/app/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary\">\r\n  <img src=\"assets/images/logo_1.png\" style=\"height:4rem; width:auto;\"/>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarColor02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" style=\"\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a class=\"nav-link\" [routerLink]=\"['/']\">Home <span></span></a>\r\n      </li>\r\n    </ul>\r\n    <ul class=\"navbar-nav ml-auto\">\r\n      <li class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">Dashboard </a>\r\n      </li>\r\n      <li class=\"nav-item\" *ngIf=\"authService.isAdmin()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a class=\"nav-link\" [routerLink]=\"['/user-manage']\">User Detail </a>\r\n      </li>\r\n      <li class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a class=\"nav-link\" [routerLink]=\"['/profile']\">Profile </a>\r\n      </li>\r\n      <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a class=\"nav-link\" [routerLink]=\"['/login']\">Login </a>\r\n      </li>\r\n      <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a class=\"nav-link\" [routerLink]=\"['/register']\">Register</a>\r\n      </li>\r\n      <li class=\"nav-item\" *ngIf=\"authService.loggedIn()\">\r\n        <a class=\"nav-link\" (click)=\"onLogoutClick()\" href=\"#\">Logout</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary\">\n  <img src=\"assets/images/logo_1.png\" style=\"height:4rem; width:auto;\"/>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarColor02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" style=\"\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link\" [routerLink]=\"['/']\">Home <span></span></a>\n      </li>\n    </ul>\n    <ul class=\"navbar-nav ml-auto\">\n      <li class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">Dashboard </a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"authService.isAdmin()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link\" [routerLink]=\"['/user-manage']\">User Detail </a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link\" [routerLink]=\"['/profile']\">Profile </a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link\" [routerLink]=\"['/login']\">Login </a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link\" [routerLink]=\"['/register']\">Register</a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"authService.loggedIn()\">\n        <a class=\"nav-link\" (click)=\"onLogoutClick()\" href=\"#\">Logout</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -795,7 +801,7 @@ module.exports = ""
 /***/ "./src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user\">\r\n  <h2><b>{{user.first_name}} {{user.last_name}}</b></h2><br />\r\n  <div class=\"jumbotron\" style=\"min-height:400px;\">\r\n    <table class=\"table table-hover\" style=\"width:50%\">\r\n      <tr>\r\n        <th scope=\"row\">First name :</th>\r\n        <td>{{user.first_name}}</td>\r\n      </tr>\r\n      <tr>\r\n        <th scope=\"row\">Last name :</th>\r\n        <td>{{user.last_name}}</td>\r\n      </tr>\r\n      <tr>\r\n        <th scope=\"row\">Occupation :</th>\r\n        <td>{{user.occupation}}</td>\r\n      </tr>\r\n      <tr>\r\n        <th scope=\"row\">Phone :</th>\r\n        <td>{{user.phone}}</td>\r\n      </tr>\r\n      <tr>\r\n        <th scope=\"row\">Email :</th>\r\n        <td>{{user.email}}</td>\r\n      </tr>\r\n    </table>\r\n    <br />\r\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#editDetailModal\">Edit Detail</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#changePwdModal\" style=\"margin-left:130px\">Change Password</button>\r\n  </div>\r\n\r\n  <div class=\"modal\" id=\"editDetailModal\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"modal-title\">Edit detail</h5>\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          <form (submit)=\"editProfile()\" id=\"editProfile\">\r\n            <div class=\"form-group\">\r\n              <label>First Name</label>\r\n              <input type=\"text\" [(ngModel)]=\"first_name\" name=\"first_name\" class=\"form-control\" required />\r\n              <label>Last Name</label>\r\n              <input type=\"text\" [(ngModel)]=\"last_name\" name=\"last_name\" class=\"form-control\" required />\r\n              <label>Occupation Name</label>\r\n              <input type=\"text\" [(ngModel)]=\"occupation\" name=\"occupation\" class=\"form-control\" required />\r\n              <label>Phone</label>\r\n              <input type=\"text\" [(ngModel)]=\"phone\" name=\"phone\" class=\"form-control\" required />\r\n              <label>Email</label>\r\n              <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\" required />\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n              <input type=\"reset\" class=\"btn btn-danger\" value=\"Reset\" />\r\n              <input type=\"submit\" class=\"btn btn-primary\" value=\"Change\" />\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"modal\" id=\"changePwdModal\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"modal-title\">Change Password</h5>\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          <form (submit)=\"changePwd()\">\r\n            <div class=\"form-group\">\r\n              <label for=\"password\">Your Password</label>\r\n              <input type=\"password\" [(ngModel)]=\"password\" name=\"old_password\" class=\"form-control\" required />\r\n              <label for=\"password\">New Password</label>\r\n              <input type=\"password\" [(ngModel)]=\"new_password\" name=\"new_password\" class=\"form-control\" required />\r\n              <label for=\"password\">Conform New Password</label>\r\n              <input type=\"password\" [(ngModel)]=\"conform_password\" name=\"conform_password\" class=\"form-control\" required />\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n              <input type=\"reset\" class=\"btn btn-danger\" value=\"Reset\" />\r\n              <input type=\"submit\" class=\"btn btn-primary\" value=\"Change\" />\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div *ngIf=\"authService.loggedIn()\">\r\n  <div *ngIf=\"user\">\r\n    <h2><b>{{user.first_name}} {{user.last_name}}</b></h2><br />\r\n    <div class=\"jumbotron\" style=\"min-height:400px;\">\r\n      <table class=\"table table-hover\" style=\"width:50%\">\r\n        <tr>\r\n          <th scope=\"row\">First name :</th>\r\n          <td>{{user.first_name}}</td>\r\n        </tr>\r\n        <tr>\r\n          <th scope=\"row\">Last name :</th>\r\n          <td>{{user.last_name}}</td>\r\n        </tr>\r\n        <tr>\r\n          <th scope=\"row\">Occupation :</th>\r\n          <td>{{user.occupation}}</td>\r\n        </tr>\r\n        <tr>\r\n          <th scope=\"row\">Phone :</th>\r\n          <td>{{user.phone}}</td>\r\n        </tr>\r\n        <tr>\r\n          <th scope=\"row\">Email :</th>\r\n          <td>{{user.email}}</td>\r\n        </tr>\r\n      </table>\r\n      <br />\r\n      <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#editDetailModal\">Edit Detail</button>\r\n      <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#changePwdModal\" style=\"margin-left:130px\">Change Password</button>\r\n    </div>\r\n    <div class=\"modal\" id=\"editDetailModal\" role=\"dialog\">\r\n      <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"modal-title\">Edit detail</h5>\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n              <span aria-hidden=\"true\">&times;</span>\r\n            </button>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form (submit)=\"editProfile()\" id=\"editProfile\">\r\n              <div class=\"form-group\">\r\n                <label>First Name</label>\r\n                <input type=\"text\" [(ngModel)]=\"first_name\" name=\"first_name\" class=\"form-control\" required />\r\n                <label>Last Name</label>\r\n                <input type=\"text\" [(ngModel)]=\"last_name\" name=\"last_name\" class=\"form-control\" required />\r\n                <label>Occupation Name</label>\r\n                <input type=\"text\" [(ngModel)]=\"occupation\" name=\"occupation\" class=\"form-control\" required />\r\n                <label>Phone</label>\r\n                <input type=\"text\" [(ngModel)]=\"phone\" name=\"phone\" class=\"form-control\" required />\r\n                <label>Email</label>\r\n                <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\" required />\r\n              </div>\r\n              <div class=\"modal-footer\">\r\n                <input type=\"reset\" class=\"btn btn-danger\" value=\"Reset\" />\r\n                <input type=\"submit\" class=\"btn btn-primary\" value=\"Change\" />\r\n              </div>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"modal\" id=\"changePwdModal\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"modal-title\">Change Password</h5>\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n              <span aria-hidden=\"true\">&times;</span>\r\n            </button>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form (submit)=\"changePwd()\">\r\n              <div class=\"form-group\">\r\n                <label for=\"password\">Your Password</label>\r\n                <input type=\"password\" [(ngModel)]=\"password\" name=\"old_password\" class=\"form-control\" required />\r\n                <label for=\"password\">New Password</label>\r\n                <input type=\"password\" [(ngModel)]=\"new_password\" name=\"new_password\" class=\"form-control\" required />\r\n                <label for=\"password\">Conform New Password</label>\r\n                <input type=\"password\" [(ngModel)]=\"conform_password\" name=\"conform_password\" class=\"form-control\" required />\r\n              </div>\r\n              <div class=\"modal-footer\">\r\n                <input type=\"reset\" class=\"btn btn-danger\" value=\"Reset\" />\r\n                <input type=\"submit\" class=\"btn btn-primary\" value=\"Change\" />\r\n              </div>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div *ngIf=\"!authService.loggedIn()\">\r\n  <h1 style=\"margin:230px 0 0 290px\"><b>Please Log In to continue...</b></h1>\r\n  <button type=\"button\" class=\"btn btn-primary\" [routerLink]=\"['/login']\" style=\"margin:60px 0 0 440px;  width: 100px; height:50px\">Log In</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -918,7 +924,7 @@ module.exports = ""
 /***/ "./src/app/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Register</h1>\r\n<form (submit)=\"onRegisterSubmit()\">\r\n  <fieldset class=\" col-md-4\" style=\"position:center\">\r\n    <div class=\"form-group\">\r\n      <label for=\"first_name\">First Name</label>\r\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"first_name\" name=\"first_name\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"last_name\">Last Name</label>\r\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"last_name\" name=\"last_name\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"email_address\">Email address</label>\r\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"email\" name=\"email\">\r\n      <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"phone\">Phone Number</label>\r\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"phone\" name=\"phone\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"occupation\">Occupation</label>\r\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"occupation\" name=\"occupation\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"username\">Username</label>\r\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\r\n    </div>\r\n    <input type=\"submit\" class=\"btn btn-primary mr-auto\" style=\"margin-left:50px\" value=\"Submit\" />\r\n    <input type=\"reset\" class=\"btn btn-danger\" style=\"margin-left:100px\" value=\"Reset\" />\r\n\r\n  </fieldset>\r\n  \r\n</form>\n"
+module.exports = "<h1>Register</h1>\n<form (submit)=\"onRegisterSubmit()\">\n  <fieldset class=\" col-md-4\" style=\"position:center\">\n    <div class=\"form-group\">\n      <label for=\"first_name\">First Name</label>\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"first_name\" name=\"first_name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last_name\">Last Name</label>\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"last_name\" name=\"last_name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"email_address\">Email address</label>\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"email\" name=\"email\">\n      <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"phone\">Phone Number</label>\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"phone\" name=\"phone\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"occupation\">Occupation</label>\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"occupation\" name=\"occupation\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"email\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary mr-auto\" style=\"margin-left:50px\" value=\"Submit\" />\n    <input type=\"reset\" class=\"btn btn-danger\" style=\"margin-left:100px\" value=\"Reset\" />\n\n  </fieldset>\n  \n</form>\n"
 
 /***/ }),
 
@@ -1047,19 +1053,19 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/register', user, { headers: headers })
+        return this.http.post('http://192.168.0.1:3000/api/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/addUser', user, { headers: headers })
+        return this.http.post('http://192.168.0.1:3000/api/addUser', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/authenticate', user, { headers: headers })
+        return this.http.post('http://192.168.0.1:3000/api/authenticate', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     /*
@@ -1068,7 +1074,7 @@ var AuthService = /** @class */ (function () {
       this.loadToken();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type', 'application/json');
-      return this.http.get('/api/profile', { headers: headers })
+      return this.http.get('http://localhost:3000/api/profile', { headers: headers })
         .map(res => res.json());
     }
   
@@ -1091,58 +1097,64 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.getProfile = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
-        return this.http.get('/api/profile/' + id, { headers: headers })
+        return this.http.get('http://192.168.0.1:3000/api/profile/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.editProfile = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
-        return this.http.put('/api/update/' + id, user, { headers: headers })
+        return this.http.put('http://192.168.0.1:3000/api/update/' + id, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.changePwd = function (pwd) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
-        return this.http.put('/api/changePwd/' + id, pwd, { headers: headers })
+        return this.http.put('http://192.168.0.1:3000/api/changePwd/' + id, pwd, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addNotification = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/addNotification', data, { headers: headers })
+        return this.http.post('http://192.168.0.1:3000/api/addNotification', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.removeNotification = function (id) {
-        return this.http.delete('/api/removeNotification/' + id)
+        return this.http.delete('http://192.168.0.1:3000/api/removeNotification/' + id)
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getNotification = function () {
         var id = this.loadId();
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        return this.http.get('/api/getNotification/' + id, { headers: headers })
+        return this.http.get('http://192.168.0.1:3000/api/getNotification/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getGroup = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        return this.http.get('/api/groups', { headers: headers })
+        return this.http.get('http://192.168.0.1:3000/api/groups', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addGroup = function (newGroup) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = this.loadId();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/addGroup/' + id, newGroup, { headers: headers })
+        return this.http.post('http://192.168.0.1:3000/api/addGroup/' + id, newGroup, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.addClient = function (user, id) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/addClient/' + id, user, { headers: headers })
+        return this.http.post('http://192.168.0.1:3000/api/addClient/' + id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.removeClient = function (user, id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://192.168.0.1:3000/api/removeClient/' + id, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getCurrentGroup = function (id) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        return this.http.get('/api/group/' + id, { headers: headers })
+        return this.http.get('http://192.168.0.1:3000/api/group/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, id, user) {
@@ -1209,7 +1221,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ChatService = /** @class */ (function () {
     function ChatService() {
         var _this = this;
-        this.url = 'https://chat-on-lan.herokuapp.com';
+        this.url = 'http://192.168.0.1:3000';
+        //receive message from server
         this.getMessages = function () {
             return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].create(function (observer) {
                 _this.socket.on('new-message', function (data) {
@@ -1217,6 +1230,7 @@ var ChatService = /** @class */ (function () {
                 });
             });
         };
+        //receive image from server
         this.getImages = function () {
             return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].create(function (observer) {
                 _this.socket.on('img-chunk', function (chunk) {
@@ -1225,19 +1239,69 @@ var ChatService = /** @class */ (function () {
             });
         };
         this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(this.url);
-        //this.getImages();
     }
+    //send message to server
     ChatService.prototype.sendMessage = function (url, message, sender) {
         this.socket.emit('new-message', { url: url, message: message, sender: sender });
     };
-    ChatService.prototype.sendImage = function (image) {
-        this.socket.emit('img-chunk', image);
+    //send image to server
+    ChatService.prototype.sendImage = function (path) {
+        this.socket.emit('img-send', path);
     };
     ChatService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [])
     ], ChatService);
     return ChatService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/send-image.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SendImageService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__("./node_modules/socket.io-client/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var SendImageService = /** @class */ (function () {
+    function SendImageService() {
+        var _this = this;
+        this.url = 'http://192.168.0.1:3000';
+        this.getImages = function () {
+            return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].create(function (observer) {
+                _this.socket.on('img-chunk', function (chunk) {
+                    observer.next(chunk);
+                });
+            });
+        };
+        this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(this.url);
+        this.getImages();
+    }
+    SendImageService.prototype.sendImage = function (image) {
+        this.socket.emit('img-chunk', image);
+    };
+    SendImageService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], SendImageService);
+    return SendImageService;
 }());
 
 
@@ -1269,25 +1333,25 @@ var UserService = /** @class */ (function () {
         this.http = http;
     }
     UserService.prototype.getUser = function () {
-        return this.http.get('/api/users')
+        return this.http.get('http://192.168.0.1:3000/api/users')
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.getUserRequest = function () {
-        return this.http.get('/api/requests')
+        return this.http.get('http://192.168.0.1:3000/api/requests')
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.addUser = function (newUser) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/api/adduser', newUser, { headers: headers })
+        return this.http.post('http://192.168.0.1:3000/api/adduser', newUser, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.deleteUser = function (id) {
-        return this.http.delete('/api/user/' + id)
+        return this.http.delete('http://192.168.0.1:3000/api/user/' + id)
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.deleteUserRequest = function (id) {
-        return this.http.delete('/api/deleterequest/' + id)
+        return this.http.delete('http://192.168.0.1:3000/api/deleterequest/' + id)
             .map(function (res) { return res.json(); });
     };
     UserService = __decorate([

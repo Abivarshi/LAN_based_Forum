@@ -47,11 +47,7 @@ export class DashboardAdminComponent implements OnInit {
       phone: request.phone,
       occupation: request.occupation,
       email: request.email,
-      username: request.username,
-      img: {
-        data: request.img.data,
-        contentType: request.img.contentType
-      }
+      username: request.username
     }
 
     this.authService.addUser(user).subscribe(data => {

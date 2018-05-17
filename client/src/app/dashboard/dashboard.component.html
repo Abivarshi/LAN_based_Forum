@@ -1,28 +1,31 @@
-<div class="row">
-  <div class="col-md-4">
-    <div class="row">
-      <div class="card text-white border-secondary mb-3" style="width: 20rem;">
-        <h3 class="card-header bg-primary text-white"><i class="fa fa-bell-o" style="font-size:24px"></i> Notifications</h3>
-        <div class="card-body">
-          <div *ngFor="let notification of notifications">
-            <div *ngIf="notification.type === 'group'">
-              <div class="alert alert-dismissible alert-light">
-                <button type="button" class="close" data-dismiss="alert" (click)="removeNotification(notification._id)">&times;</button>
-                <strong>New Group!</strong> <br />You have an invitation to join
-                <a class="alert-link">{{notification.data.grpName}}</a>, created by {{notification.data.grpAdmin}}.
+<div *ngIf="authService.loggedIn()">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="card text-white border-secondary mb-3" style="width: 20rem;">
+          <h3 class="card-header bg-primary text-white"><i class="fa fa-bell-o" style="font-size:24px"></i> Notifications</h3>
+          <div class="card-body">
+            <div *ngFor="let notification of notifications">
+              <div *ngIf="notification.type === 'group'">
+                <div class="alert alert-dismissible alert-light">
+                  <button type="button" class="close" data-dismiss="alert" (click)="removeNotification(notification._id)">&times;</button>
+                  <strong>New Group!</strong> <br />You have an invitation to join{{notification.data.grpName}}, created by
+                  <strong>{{notification.data.grpAdmin}}</strong>.
+                  <br /><button type="button" class="btn btn-primary btn-sm" (click)="acceptJoinGrp(notification.data.grpID)">Accept</button>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="rejectJoinGrp(notification.data.grpID, notification._id)">Reject</button>
+                </div>
               </div>
-            </div>
-            <div *ngIf="notification.type === 'user'">
-              <div class="alert alert-dismissible alert-light">
-                <button type="button" class="close" data-dismiss="alert" (click)="removeNotification(notification._id)">&times;</button>
-                <strong>New User Request!</strong><br />
-                <a class="alert-link" [routerLink]="['/user-manage']">{{notification.data}}</a>, request to join the system.
+              <div *ngIf="notification.type === 'user'">
+                <div class="alert alert-dismissible alert-light">
+                  <button type="button" class="close" data-dismiss="alert" (click)="removeNotification(notification._id)">&times;</button>
+                  <strong>New User Request!</strong><br />
+                  <a class="alert-link" [routerLink]="['/user-manage']">{{notification.data}}</a>, request to join the system.
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div>
+
         <div class="card text-white bg-primary mb-3" style="width: 20rem; max-height:30rem">
           <h3 class="card-header">Create Group</h3>
           <div class="card-body">
@@ -34,7 +37,7 @@
               <fieldset class="form-group">
                 <legend>Invite Members</legend>
                 <div class="form-check" *ngFor="let client of users">
-                  <div *ngIf="user._id !== client._id">
+                  <div *ngIf="currentUser._id !== client._id">
                     <label class="form-check-label">
                       <input class="form-check-input" type="checkbox" name="client" (change)="addClient(client, $event.target.checked)">
                       {{client.first_name}} {{client.last_name}}
@@ -50,27 +53,30 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-8">
-    <h1>Current Discussions</h1><br />
-    <div class="row">
-      <div class="col-md-4 col-sm-4" *ngFor="let group of groups">
-        <div class="card border-light mb-3" style="width: 15rem;">
-          <h3 class="card-header">{{group.group_name}}</h3>
-          <div class="card-body">
-            <h5 class="card-title">Admin :</h5>
-            <h6 class="card-subtitle text-muted">{{group.admin.first_name}}</h6><br />
-            <h5 class="card-title">Clients :</h5>
-            <div *ngFor="let client of group.client">
-              <h6 class="card-subtitle text-muted">{{client.first_name}}</h6><br />
+    <div class="col-md-8">
+      <h1>Current Discussions</h1><br />
+      <div class="row">
+        <div class="col-md-4 col-sm-4" *ngFor="let group of groups">
+          <div class="card border-light mb-3" style="width: 15rem;">
+            <h3 class="card-header">{{group.group_name}}</h3>
+            <div class="card-body">
+              <h5 class="card-title">Admin :</h5>
+              <h6 class="card-subtitle text-muted">{{group.admin.first_name}}</h6><br />
+              <h5 class="card-title">Clients :</h5>
+              <div *ngFor="let client of group.client">
+                <h6 class="card-subtitle text-muted">{{client.first_name}}</h6><br />
+              </div>
             </div>
-          </div>
-          <div class="card-footer text-muted">
-            <button type="button" class="btn btn-primary btn-lg btn-block" (click)="joinChat(group)" style="max-width: 25rem;">Join Discussion</button>
+            <div class="card-footer text-muted">
+              <button type="button" class="btn btn-primary btn-lg btn-block" (click)="joinChat(group)" style="max-width: 25rem;">Join Discussion</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
-
+<div *ngIf="!authService.loggedIn()">
+  <h1 style="margin:230px 0 0 290px"><b>Please Log In to continue...</b></h1>
+  <button type="button" class="btn btn-primary" [routerLink]="['/login']" style="margin:60px 0 0 440px;  width: 100px; height:50px">Log In</button>
+</div>
